@@ -1,0 +1,101 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:'Inter',sans-serif;
+
+    background:#ededed;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    min-height:100vh;
+}
+
+.ms-card{
+
+    width:440px;
+
+    background:white;
+
+    padding:45px;
+
+    box-shadow:
+    0 5px 20px rgba(0,0,0,.08);
+}
+
+.ms-logo{
+
+    width:110px;
+
+    margin-bottom:20px;
+}
+
+.ms-card h1{
+
+    font-size:28px;
+
+    font-weight:500;
+
+    margin-bottom:15px;
+}
+
+.ms-card p{
+
+    color:#444;
+
+    margin-bottom:20px;
+}
+
+.ms-card input{
+
+    width:100%;
+
+    height:48px;
+
+    border:none;
+
+    border-bottom:1px solid #666;
+
+    font-size:15px;
+
+    outline:none;
+}
+
+.link{
+
+    margin-top:20px;
+
+    font-size:14px;
+}
+
+.link a{
+
+    text-decoration:none;
+
+    color:#0067b8;
+}
+
+.ms-card button{
+
+    margin-top:30px;
+
+    width:120px;
+
+    height:40px;
+
+    float:right;
+
+    border:none;
+
+    background:#0067b8;
+
+    color:white;
+
+    cursor:pointer;
+}

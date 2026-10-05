@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUY HRM Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+
+    <div class="layout">
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <div class="brand">
+
+                <div class="logo-icon">
+                    G
+                </div>
+
+                <div>
+                    <h2>GUY HRM</h2>
+                    <p>Quản lý nhân sự</p>
+                </div>
+
+            </div>
+
+            <nav class="menu">
+
+                <a href="#" class="active"> Tổng quan</a>
+
+                <a href="pages/employees.html"> Nhân sự</a>
+
+                <a href="pages/schedule.html"> Lịch làm việc</a>
+
+                <a href="pages/attendance.html"> Chấm công</a>
+
+                <a href="pages/payroll.html">Bảng Lương</a>
+
+                <a href="pages/reports.html"> Báo cáo</a>
+
+                <a href="pages/permission.html"> Phân quyền</a>
+
+                <a href="pages/settings.html">⚙ Cài đặt</a>
+
+            </nav>
+
+        </aside>
+
+        <!-- CONTENT -->
+
+        <main class="content">
+
+            <!-- TOPBAR -->
+
+            <header class="topbar">
+
+                <div class="search-box">
+
+                    <input
+                        type="text"
+                        placeholder="Tìm kiếm nhân viên, phòng ban, báo cáo...">
+
+                </div>
+
+                <div class="top-right">
+
+                    <button class="notification">
+                        🔔
+                    </button>
+
+                    <div class="user-profile">
+
+                        <div class="avatar">
+                            LN
+                        </div>
+
+                        <div>
+                            <h4>Lê Đại Nghĩa</h4>
+                            <p>Quản trị viên</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+            <!-- WELCOME -->
+
+            <section class="welcome">
+
+                <h1>Xin chào, Lê Đại Nghĩa 👋</h1>
+
+                <p>
+                    Chào mừng bạn quay trở lại hệ thống quản lý nhân sự GUY HRM.
+                </p>
+
+            </section>
+
+            <!-- KPI -->
+
+            <section class="stats-grid">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        👥
+                    </div>
+
+                    <div>
+                        <h2>56</h2>
+                        <p>Tổng nhân viên</p>
+                    </div>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ✅
+                    </div>
+
+                    <div>
+                        <h2>48</h2>
+                        <p>Đang làm việc</p>
+                    </div>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        📅
+                    </div>
+
+                    <div>
+                        <h2>12</h2>
+                        <p>Ca hôm nay</p>
+                    </div>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ⚠️
+                    </div>
+
+                    <div>
+                        <h2>3</h2>
+                        <p>Đi muộn</p>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- CHARTS -->
+
+            <section class="chart-grid">
+
+                <div class="chart-card">
+
+                    <h3>Biến động nhân sự</h3>
+
+                    <div class="chart-area">
+
+                        <span>Biểu đồ nhân sự</span>
+
+                    </div>
+
+                </div>
+
+                <div class="chart-card">
+
+                    <h3>Tỷ lệ phòng ban</h3>
+
+                    <div class="pie-area">
+
+                        <span>Pie Chart</span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- INFO GRID -->
+
+            <section class="info-grid">
+
+                <!-- NOTICE -->
+
+                <div class="notice-card">
+
+                    <h3>Thông báo hệ thống</h3>
+
+                    <ul>
+
+                        <li>3 nhân viên đi muộn hôm nay</li>
+
+                        <li>2 đơn nghỉ phép đang chờ duyệt</li>
+
+                        <li>1 ca làm chưa được phân công</li>
+
+                        <li>Cập nhật lịch làm việc tuần mới</li>
+
+                    </ul>
+
+                </div>
+
+                <!-- QUICK ACTION -->
+
+                <div class="notice-card">
+
+                    <h3>Thao tác nhanh</h3>
+
+                    <div class="quick-grid">
+
+                        <button>➕ Thêm nhân viên</button>
+
+                        <button>📅 Tạo ca</button>
+
+                        <button>⏱ Chấm công</button>
+
+                        <button>📊 Xuất báo cáo</button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- EMPLOYEE TABLE -->
+
+            <section class="employee-table">
+
+                <h3>Nhân viên nổi bật</h3>
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Họ tên</th>
+                            <th>Phòng ban</th>
+                            <th>Chức vụ</th>
+                            <th>Hiệu suất</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+
+                            <td>Nguyễn Văn A</td>
+                            <td>Bán hàng</td>
+                            <td>Nhân viên</td>
+                            <td>98%</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>Trần Thị B</td>
+                            <td>Thu ngân</td>
+                            <td>Nhân viên</td>
+                            <td>95%</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>Lê Văn C</td>
+                            <td>Kho</td>
+                            <td>Tổ trưởng</td>
+                            <td>92%</td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>

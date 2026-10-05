@@ -1,0 +1,351 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:#f4f7fc;
+    color:#0f172a;
+}
+
+/* PAGE */
+
+.page-container{
+    max-width:1600px;
+    margin:auto;
+    padding:30px;
+}
+
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.page-header h1{
+    font-size:36px;
+    font-weight:800;
+}
+
+.page-header p{
+    margin-top:8px;
+    color:#64748b;
+}
+
+/* BUTTON */
+
+.primary-btn{
+    border:none;
+    cursor:pointer;
+
+    padding:14px 22px;
+
+    border-radius:12px;
+
+    color:white;
+
+    font-weight:600;
+
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #4f46e5
+    );
+}
+
+/* GRID */
+
+.grid-4{
+    display:grid;
+    grid-template-columns:
+    repeat(4,1fr);
+    gap:20px;
+    margin-bottom:25px;
+}
+
+.grid-3{
+    display:grid;
+    grid-template-columns:
+    repeat(3,1fr);
+    gap:20px;
+}
+
+.grid-2{
+    display:grid;
+    grid-template-columns:
+    repeat(2,1fr);
+    gap:20px;
+}
+
+/* CARD */
+
+.card,
+.stat-card{
+    background:white;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    box-shadow:
+    0 8px 20px rgba(0,0,0,.05);
+}
+
+.stat-card h2{
+    color:#2563eb;
+    font-size:32px;
+}
+
+.stat-card p{
+    margin-top:8px;
+    color:#64748b;
+}
+
+/* TABLE */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#f8fafc;
+    text-align:left;
+    padding:15px;
+}
+
+td{
+    padding:15px;
+    border-bottom:
+    1px solid #e5e7eb;
+}
+
+/* BADGE */
+
+.badge-success{
+    background:#dcfce7;
+    color:#15803d;
+
+    padding:8px 12px;
+    border-radius:999px;
+}
+
+.badge-warning{
+    background:#fef3c7;
+    color:#b45309;
+
+    padding:8px 12px;
+    border-radius:999px;
+}
+
+/* SECTION */
+
+.section-title{
+    margin-bottom:20px;
+}
+
+/* PERMISSION */
+
+.permission-layout{
+
+    display:grid;
+
+    grid-template-columns:
+    350px 1fr;
+
+    gap:25px;
+}
+
+.role-list{
+    margin-top:15px;
+}
+
+.role-item{
+
+    border:1px solid #e5e7eb;
+
+    padding:18px;
+
+    border-radius:14px;
+
+    margin-bottom:12px;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.role-item:hover{
+    border-color:#2563eb;
+}
+
+.active-role{
+
+    background:#eef4ff;
+
+    border-color:#2563eb;
+}
+
+.role-item span{
+
+    display:block;
+
+    margin-top:5px;
+
+    font-size:14px;
+
+    color:#64748b;
+}
+
+.permission-group{
+    margin-bottom:30px;
+}
+
+.permission-group h3{
+    margin-bottom:15px;
+}
+
+.permission-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:15px;
+}
+
+.permission-grid label{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:14px;
+
+    background:#f8fafc;
+
+    border-radius:12px;
+
+    cursor:pointer;
+}
+
+.permission-grid input{
+
+    width:18px;
+    height:18px;
+}
+
+.save-btn{
+    margin-top:10px;
+}
+
+/* PROFILE PAGE */
+
+.profile-card{
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    display:flex;
+
+    gap:25px;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+    box-shadow:
+    0 8px 20px rgba(0,0,0,.05);
+}
+
+.profile-avatar{
+
+    width:100px;
+    height:100px;
+
+    border-radius:50%;
+
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #4f46e5
+    );
+
+    color:white;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:32px;
+    font-weight:700;
+}
+
+.info-card{
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    margin-bottom:25px;
+
+    box-shadow:
+    0 8px 20px rgba(0,0,0,.05);
+}
+
+.info-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:25px;
+
+    margin-top:20px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1200px){
+
+    .grid-4{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .permission-layout{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:768px){
+
+    .grid-4,
+    .grid-3,
+    .grid-2{
+        grid-template-columns:1fr;
+    }
+
+    .permission-grid{
+        grid-template-columns:1fr;
+    }
+
+    .page-header{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:15px;
+    }
+}

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GUY HRM - Quản lý phân quyền</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/pages.css">
+
+</head>
+
+<body>
+
+    <div class="page-container">
+
+        <div class="page-header">
+
+            <div>
+
+                <h1>🔐 Quản lý phân quyền</h1>
+
+                <p>
+                    Quản lý vai trò, quyền truy cập và phân quyền hệ thống GUY HRM
+                </p>
+
+            </div>
+
+            <button class="primary-btn">
+                + Tạo vai trò mới
+            </button>
+
+        </div>
+
+        <!-- KPI -->
+
+        <section class="grid-4">
+
+            <div class="stat-card">
+
+                <h2>5</h2>
+
+                <p>Vai trò hệ thống</p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h2>56</h2>
+
+                <p>Tài khoản nhân viên</p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h2>42</h2>
+
+                <p>Đang hoạt động</p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h2>18</h2>
+
+                <p>Quyền chức năng</p>
+
+            </div>
+
+        </section>
+
+        <!-- MAIN -->
+
+        <div class="permission-layout">
+
+            <!-- ROLE -->
+
+            <div class="card">
+
+                <div class="section-title">
+
+                    <h2>Vai trò hệ thống</h2>
+
+                </div>
+
+                <div class="role-list">
+
+                    <div class="role-item active-role">
+
+                        <h3>Quản trị viên</h3>
+
+                        <span>Toàn quyền hệ thống</span>
+
+                    </div>
+
+                    <div class="role-item">
+
+                        <h3>Quản lý cửa hàng</h3>
+
+                        <span>Điều hành hoạt động</span>
+
+                    </div>
+
+                    <div class="role-item">
+
+                        <h3>Trưởng ca</h3>
+
+                        <span>Quản lý ca làm việc</span>
+
+                    </div>
+
+                    <div class="role-item">
+
+                        <h3>Kế toán</h3>
+
+                        <span>Quản lý bảng lương</span>
+
+                    </div>
+
+                    <div class="role-item">
+
+                        <h3>Nhân viên</h3>
+
+                        <span>Quyền cơ bản</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- PERMISSIONS -->
+
+            <div class="card">
+
+                <div class="section-title">
+
+                    <h2>Chi tiết quyền</h2>
+
+                </div>
+
+                <div class="permission-group">
+
+                    <h3>Nhân sự</h3>
+
+                    <div class="permission-grid">
+
+                        <label><input type="checkbox" checked> Xem nhân viên</label>
+
+                        <label><input type="checkbox" checked> Thêm nhân viên</label>
+
+                        <label><input type="checkbox" checked> Chỉnh sửa nhân viên</label>
+
+                        <label><input type="checkbox" checked> Xóa nhân viên</label>
+
+                    </div>
+
+                </div>
+
+                <div class="permission-group">
+
+                    <h3>Chấm công</h3>
+
+                    <div class="permission-grid">
+
+                        <label><input type="checkbox" checked> Xem chấm công</label>
+
+                        <label><input type="checkbox" checked> Duyệt công</label>
+
+                        <label><input type="checkbox" checked> Quản lý ca làm</label>
+
+                        <label><input type="checkbox"> Xóa dữ liệu công</label>
+
+                    </div>
+
+                </div>
+
+                <div class="permission-group">
+
+                    <h3>Bảng lương</h3>
+
+                    <div class="permission-grid">
+
+                        <label><input type="checkbox" checked> Xem bảng lương</label>
+
+                        <label><input type="checkbox" checked> Xuất Excel</label>
+
+                        <label><input type="checkbox"> Chỉnh sửa lương</label>
+
+                        <label><input type="checkbox"> Duyệt thanh toán</label>
+
+                    </div>
+
+                </div>
+
+                <div class="permission-group">
+
+                    <h3>Hệ thống</h3>
+
+                    <div class="permission-grid">
+
+                        <label><input type="checkbox" checked> Xem báo cáo</label>
+
+                        <label><input type="checkbox" checked> Quản lý phân quyền</label>
+
+                        <label><input type="checkbox" checked> Cấu hình hệ thống</label>
+
+                        <label><input type="checkbox"> Xóa dữ liệu hệ thống</label>
+
+                    </div>
+
+                </div>
+
+                <button class="primary-btn save-btn">
+                    Lưu thay đổi
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

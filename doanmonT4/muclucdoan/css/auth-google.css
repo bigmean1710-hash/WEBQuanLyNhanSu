@@ -1,0 +1,137 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:#f8f9fa;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    min-height:100vh;
+}
+
+.google-card{
+
+    width:460px;
+
+    background:white;
+
+    border:1px solid #dadce0;
+
+    border-radius:28px;
+
+    padding:40px;
+}
+
+.google-logo{
+
+    width:38px;
+
+    margin-bottom:20px;
+}
+
+.google-card h1{
+
+    font-size:32px;
+    font-weight:500;
+}
+
+.subtitle{
+
+    margin-top:10px;
+
+    color:#5f6368;
+
+    margin-bottom:30px;
+}
+
+.account{
+
+    display:flex;
+
+    gap:15px;
+
+    align-items:center;
+
+    text-decoration:none;
+
+    color:#202124;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    transition:.2s;
+}
+
+.account:hover{
+
+    background:#f1f3f4;
+}
+
+.avatar{
+
+    width:45px;
+    height:45px;
+
+    border-radius:50%;
+
+    background:#4285f4;
+
+    color:white;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-weight:600;
+}
+
+.account-info{
+
+    display:flex;
+    flex-direction:column;
+}
+
+.account-info span{
+
+    color:#5f6368;
+    font-size:13px;
+}
+
+.other-account{
+
+    display:block;
+
+    margin-top:15px;
+
+    padding:15px;
+
+    text-decoration:none;
+
+    color:#1a73e8;
+
+    border-radius:12px;
+}
+
+.other-account:hover{
+
+    background:#f1f3f4;
+}
+
+.footer{
+
+    margin-top:30px;
+}
+
+.footer a{
+
+    text-decoration:none;
+
+    color:#1a73e8;
+}
