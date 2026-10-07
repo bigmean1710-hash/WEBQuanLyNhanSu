@@ -1,59 +1,351 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
+
 <meta charset="UTF-8">
-<title>Lịch làm việc</title>
-<link rel="stylesheet" href="../css/pages.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GUY HRM - Lịch làm việc</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet" href="../css/sidebar.css">
+<link rel="stylesheet" href="../css/schedule.css">
+
 </head>
+
 <body>
 
-<div class="page-container">
+<div class="layout">
 
-<div class="page-header">
-<h1>📅 Lịch làm việc</h1>
-<button class="primary-btn">+ Tạo ca mới</button>
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="logo-icon">
+                G
+            </div>
+
+            <div>
+                <h2>GUY HRM</h2>
+                <p>Quản lý nhân sự</p>
+            </div>
+
+        </div>
+
+        <nav class="sidebar-menu">
+
+            <a href="../dashboard.html">
+                📊 Tổng quan
+            </a>
+
+            <a href="employees.html">
+                👥 Nhân sự
+            </a>
+
+            <a href="schedule.html" class="active">
+                📅 Lịch làm việc
+            </a>
+
+            <a href="attendance.html">
+                ⏱ Chấm công
+            </a>
+
+            <a href="payroll.html">
+                💰 Bảng lương
+            </a>
+
+            <a href="reports.html">
+                📈 Báo cáo
+            </a>
+
+            <a href="permission.html">
+                🔐 Phân quyền
+            </a>
+
+            <a href="settings.html">
+                ⚙️ Cài đặt
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+       <div class="page-header">
+
+    <div>
+        <h1>📅 Lịch làm việc</h1>
+        <p>Quản lý lịch làm việc và phân công ca nhân viên</p>
+    </div>
+
+    <div class="header-actions">
+
+    <a href="swap-request.html" class="btn-light">
+        🔄 Đăng ký đổi ca
+    </a>
+
+    <button class="btn-light">
+        📋 Sao chép tuần
+    </button>
+
+    <button class="btn-light">
+        📤 Xuất Excel
+    </button>
+
+    <button class="btn-primary">
+        ➕ Tạo lịch mới
+    </button>
+
 </div>
 
-<div class="content-card">
-
-<h3>Lịch tuần hiện tại</h3>
-
-<br>
-
-<table>
-
-<tr>
-<th>Ca</th>
-<th>T2</th>
-<th>T3</th>
-<th>T4</th>
-<th>T5</th>
-<th>T6</th>
-</tr>
-
-<tr>
-<td>Ca sáng</td>
-<td>5 NV</td>
-<td>5 NV</td>
-<td>6 NV</td>
-<td>5 NV</td>
-<td>5 NV</td>
-</tr>
-
-<tr>
-<td>Ca chiều</td>
-<td>4 NV</td>
-<td>4 NV</td>
-<td>5 NV</td>
-<td>4 NV</td>
-<td>5 NV</td>
-</tr>
-
-</table>
-
 </div>
+
+<!-- KPI -->
+
+<section class="stats-grid">
+
+    <div class="stat-card">
+        <span>Tổng ca tuần</span>
+        <h2>128</h2>
+        <small>+12% so với tuần trước</small>
+    </div>
+
+    <div class="stat-card">
+        <span>Nhân viên đã phân ca</span>
+        <h2>48</h2>
+        <small>Đạt 100%</small>
+    </div>
+
+    <div class="stat-card">
+        <span>Tỷ lệ phủ ca</span>
+        <h2>96%</h2>
+        <small>Ổn định</small>
+    </div>
+
+    <div class="stat-card warning">
+        <span>Ca thiếu người</span>
+        <h2>3</h2>
+        <small>Cần xử lý</small>
+    </div>
+
+</section>
+
+<!-- FILTER -->
+
+<section class="filter-bar">
+
+    <select>
+        <option>Tuần 41 - 2026</option>
+    </select>
+
+    <select>
+        <option>Tất cả phòng ban</option>
+    </select>
+
+    <select>
+        <option>Tất cả ca làm</option>
+    </select>
+
+    <input
+        type="text"
+        placeholder="Tìm nhân viên...">
+
+</section>
+
+<!-- CALENDAR -->
+
+<section class="schedule-card">
+
+    <div class="card-header">
+
+        <h2>Lịch làm việc tuần</h2>
+
+        <div class="legend">
+
+            <span class="legend-item">
+                <span class="dot morning-dot"></span>
+                Ca sáng
+            </span>
+
+            <span class="legend-item">
+                <span class="dot afternoon-dot"></span>
+                Ca chiều
+            </span>
+
+            <span class="legend-item">
+                <span class="dot night-dot"></span>
+                Ca tối
+            </span>
+
+        </div>
+
+    </div>
+
+    <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Nhân viên</th>
+                    <th>T2</th>
+                    <th>T3</th>
+                    <th>T4</th>
+                    <th>T5</th>
+                    <th>T6</th>
+                    <th>T7</th>
+                    <th>CN</th>
+                    <th>Tổng giờ</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+
+                    <td class="employee-cell">
+
+                        <div class="avatar">NA</div>
+
+                        <div>
+                            <strong>Nguyễn Văn An</strong>
+                            <span>Bán hàng</span>
+                        </div>
+
+                    </td>
+
+                    <td><span class="shift morning">S</span></td>
+                    <td><span class="shift morning">S</span></td>
+                    <td><span class="shift afternoon">C</span></td>
+                    <td><span class="shift afternoon">C</span></td>
+                    <td><span class="shift morning">S</span></td>
+                    <td><span class="shift off">-</span></td>
+                    <td><span class="shift off">-</span></td>
+
+                    <td>40h</td>
+
+                </tr>
+
+                <tr>
+
+                    <td class="employee-cell">
+
+                        <div class="avatar">TB</div>
+
+                        <div>
+                            <strong>Trần Thị Bình</strong>
+                            <span>Thu ngân</span>
+                        </div>
+
+                    </td>
+
+                    <td><span class="shift afternoon">C</span></td>
+                    <td><span class="shift afternoon">C</span></td>
+                    <td><span class="shift night">T</span></td>
+                    <td><span class="shift night">T</span></td>
+                    <td><span class="shift morning">S</span></td>
+                    <td><span class="shift morning">S</span></td>
+                    <td><span class="shift off">-</span></td>
+
+                    <td>48h</td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+<!-- ROW 2 -->
+
+<section class="bottom-grid">
+
+    <div class="card">
+
+        <h2>🔄 Yêu cầu đổi ca</h2>
+
+        <div class="request-item">
+
+            <div>
+                <strong>Nguyễn Văn An</strong>
+                <p>Đổi ca sáng thứ 5 sang ca chiều</p>
+            </div>
+
+            <div>
+                <button class="approve-btn">
+                    Duyệt
+                </button>
+
+                <button class="reject-btn">
+                    Từ chối
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h2>⚠ Cảnh báo nhân sự</h2>
+
+        <ul class="alert-list">
+            <li>Ca chiều thứ 7 thiếu 2 nhân viên</li>
+            <li>Ca tối chủ nhật thiếu 1 nhân viên</li>
+            <li>Thu ngân còn thiếu 1 người</li>
+        </ul>
+
+    </div>
+
+</section>
+
+<!-- SHIFT SUMMARY -->
+
+<section class="shift-summary">
+
+    <div class="shift-box">
+        <h3>🌅 Ca sáng</h3>
+        <h2>18</h2>
+        <p>06:00 - 14:00</p>
+    </div>
+
+    <div class="shift-box">
+        <h3>🌇 Ca chiều</h3>
+        <h2>20</h2>
+        <p>14:00 - 22:00</p>
+    </div>
+
+    <div class="shift-box">
+        <h3>🌙 Ca tối</h3>
+        <h2>10</h2>
+        <p>22:00 - 06:00</p>
+    </div>
+
+    <div class="shift-box">
+        <h3>🎯 Cuối tuần</h3>
+        <h2>12</h2>
+        <p>Thứ 7 - Chủ nhật</p>
+    </div>
+
+</section>
+
+    </main>
 
 </div>
 
 </body>
+
 </html>

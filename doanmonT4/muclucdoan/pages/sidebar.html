@@ -1,0 +1,177 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+.layout{
+    display:flex;
+    min-height:100vh;
+    background:#f4f7fc;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:270px;
+    background:#fff;
+    border-right:1px solid #e2e8f0;
+
+    display:flex;
+    flex-direction:column;
+
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:25px;
+
+    border-bottom:1px solid #eef2f7;
+}
+
+.logo-icon{
+    width:48px;
+    height:48px;
+
+    border-radius:14px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #4f46e5
+    );
+
+    color:white;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:22px;
+    font-weight:700;
+}
+
+.brand h2{
+    font-size:18px;
+    font-weight:700;
+}
+
+.brand p{
+    color:#64748b;
+    font-size:13px;
+}
+
+.sidebar-menu{
+    padding:20px 15px;
+    flex:1;
+}
+
+.sidebar-menu a{
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+
+    padding:14px 16px;
+
+    border-radius:12px;
+
+    text-decoration:none;
+
+    color:#334155;
+
+    font-weight:500;
+
+    margin-bottom:6px;
+
+    transition:.25s;
+}
+
+.sidebar-menu a:hover{
+    background:#eef4ff;
+    color:#2563eb;
+}
+
+.sidebar-menu a.active{
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #4f46e5
+    );
+
+    color:white;
+}
+
+/* FOOTER */
+
+.sidebar-footer{
+    padding:20px;
+    border-top:1px solid #eef2f7;
+}
+
+.user-box{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.user-avatar{
+    width:45px;
+    height:45px;
+
+    border-radius:50%;
+
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #4f46e5
+    );
+
+    color:white;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-weight:700;
+}
+
+.user-box span{
+    display:block;
+    color:#64748b;
+    font-size:13px;
+}
+
+/* MAIN */
+
+.main-content{
+    flex:1;
+    margin-left:270px;
+    padding:30px;
+}
+
+@media(max-width:992px){
+
+    .sidebar{
+        width:80px;
+    }
+
+    .brand div:not(.logo-icon),
+    .sidebar-footer{
+        display:none;
+    }
+
+    .main-content{
+        margin-left:80px;
+    }
+}

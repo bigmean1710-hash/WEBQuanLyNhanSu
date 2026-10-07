@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GUY HRM - Đăng ký đổi ca</title>
+
+<link rel="stylesheet" href="../css/sidebar.css">
+<link rel="stylesheet" href="../css/swap-request.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="logo-icon">G</div>
+
+            <div>
+                <h2>GUY HRM</h2>
+                <p>Quản lý nhân sự</p>
+            </div>
+        </div>
+
+        <nav class="sidebar-menu">
+
+            <a href="../dashboard.html">
+                📊 Tổng quan
+            </a>
+
+            <a href="employees.html">
+                👥 Nhân sự
+            </a>
+
+            <a href="schedule.html" class="active">
+                📅 Lịch làm việc
+            </a>
+
+            <a href="attendance.html">
+                ⏱ Chấm công
+            </a>
+
+            <a href="payroll.html">
+                💰 Bảng lương
+            </a>
+
+            <a href="permission.html">
+                🔐 Phân quyền
+            </a>
+
+            <a href="settings.html">
+                ⚙ Cài đặt
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <!-- MAIN -->
+
+    <main class="main-content">
+
+        <div class="page-header">
+
+            <div>
+                <h1>🔄 Đăng ký đổi ca</h1>
+                <p>Gửi yêu cầu đổi ca làm việc đến quản lý</p>
+            </div>
+
+        </div>
+
+        <section class="request-form">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Ca hiện tại</label>
+                    <select>
+                        <option>Ca sáng - Thứ 5</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Ca muốn đổi</label>
+                    <select>
+                        <option>Ca chiều - Thứ 5</option>
+                        <option>Ca tối - Thứ 5</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Nhân viên đổi ca</label>
+
+                <select>
+                    <option>Trần Thị Bình</option>
+                    <option>Lê Văn Cường</option>
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Lý do đổi ca</label>
+
+                <textarea rows="5"></textarea>
+
+            </div>
+
+            <div class="action-bar">
+
+                <button class="btn-light">
+                    Hủy
+                </button>
+
+                <button class="btn-primary">
+                    Gửi yêu cầu
+                </button>
+
+            </div>
+
+        </section>
+
+        <!-- HISTORY -->
+
+        <section class="history-card">
+
+            <div class="card-title">
+                Lịch sử yêu cầu đổi ca
+            </div>
+
+            <table>
+
+                <thead>
+
+                <tr>
+                    <th>Mã NV</th>
+                    <th>Nhân viên</th>
+                    <th>Ca đổi</th>
+                    <th>Ngày</th>
+                    <th>Trạng thái</th>
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                <tr>
+                    <td>NV001</td>
+                    <td>Nguyễn Văn An</td>
+                    <td>Sáng → Chiều</td>
+                    <td>05/10/2026</td>
+                    <td>
+                        <span class="pending">
+                            Chờ duyệt
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>NV002</td>
+                    <td>Trần Thị Bình</td>
+                    <td>Chiều → Tối</td>
+                    <td>04/10/2026</td>
+                    <td>
+                        <span class="approved">
+                            Đã duyệt
+                        </span>
+                    </td>
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+</html>

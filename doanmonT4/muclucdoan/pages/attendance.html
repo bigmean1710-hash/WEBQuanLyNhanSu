@@ -1,69 +1,207 @@
-<!DOCTYPE html>
-<html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>Chấm công</title>
-<link rel="stylesheet" href="../css/pages.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GUY HRM - Chấm công</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet" href="../css/sidebar.css">
+<link rel="stylesheet" href="../css/attendance.css">
 </head>
 <body>
 
-<div class="page-container">
+<div class="layout">
 
-<h1>⏱ Chấm công</h1>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
 
-<br>
+        <div class="brand">
+            <div class="logo-icon">G</div>
 
-<div class="grid-3">
+            <div>
+                <h2>GUY HRM</h2>
+                <p>Quản lý nhân sự</p>
+            </div>
+        </div>
 
-<div class="stat-card">
-<h2>48</h2>
-<p>Đúng giờ</p>
-</div>
+        <nav class="sidebar-menu">
 
-<div class="stat-card">
-<h2>3</h2>
-<p>Đi muộn</p>
-</div>
+            <a href="../dashboard.html">
+                📊 Tổng quan
+            </a>
 
-<div class="stat-card">
-<h2>1</h2>
-<p>Vắng mặt</p>
-</div>
+            <a href="employees.html">
+                👥 Nhân sự
+            </a>
 
-</div>
+            <a href="schedule.html">
+                📅 Lịch làm việc
+            </a>
 
-<br>
+            <a href="attendance.html" class="active">
+                ⏱ Chấm công
+            </a>
 
-<div class="content-card">
+            <a href="payroll.html">
+                💰 Bảng lương
+            </a>
 
-<table>
+            <a href="reports.html">
+                📈 Báo cáo
+            </a>
 
-<tr>
-<th>Nhân viên</th>
-<th>Check In</th>
-<th>Check Out</th>
-<th>Trạng thái</th>
-</tr>
+            <a href="permission.html">
+                🔐 Phân quyền
+            </a>
 
-<tr>
-<td>Nguyễn Văn A</td>
-<td>07:00</td>
-<td>15:00</td>
-<td><span class="badge-success">Đúng giờ</span></td>
-</tr>
+            <a href="settings.html">
+                ⚙️ Cài đặt
+            </a>
 
-<tr>
-<td>Trần Thị B</td>
-<td>07:15</td>
-<td>15:00</td>
-<td><span class="badge-warning">Đi muộn</span></td>
-</tr>
+        </nav>
 
-</table>
+    </aside>
 
-</div>
+    <main class="main-content">
+
+        <div class="page-header">
+
+            <div>
+                <h1>⏱ Chấm công</h1>
+                <p>Theo dõi thời gian làm việc của nhân viên</p>
+            </div>
+
+            <button class="primary-btn">
+                📤 Xuất Excel
+            </button>
+
+        </div>
+
+        <!-- KPI -->
+
+        <section class="stats-grid">
+
+            <div class="stat-card">
+                <h2>56</h2>
+                <span>Tổng nhân viên</span>
+            </div>
+
+            <div class="stat-card">
+                <h2>48</h2>
+                <span>Đã chấm công</span>
+            </div>
+
+            <div class="stat-card">
+                <h2>3</h2>
+                <span>Đi muộn</span>
+            </div>
+
+            <div class="stat-card">
+                <h2>2</h2>
+                <span>Vắng mặt</span>
+            </div>
+
+        </section>
+
+        <!-- FILTER -->
+
+        <section class="toolbar">
+
+            <input type="date">
+
+            <select>
+                <option>Tất cả phòng ban</option>
+            </select>
+
+            <select>
+                <option>Tất cả ca</option>
+            </select>
+
+            <input
+                type="text"
+                placeholder="Tìm nhân viên...">
+
+        </section>
+
+        <!-- TABLE -->
+
+        <section class="table-card">
+
+            <div class="table-header">
+
+                <h2>Bảng chấm công hôm nay</h2>
+
+            </div>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Nhân viên</th>
+                        <th>Ca</th>
+                        <th>Check In</th>
+                        <th>Check Out</th>
+                        <th>Giờ làm</th>
+                        <th>Trạng thái</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Nguyễn Văn An</td>
+                        <td>Ca sáng</td>
+                        <td>07:58</td>
+                        <td>17:05</td>
+                        <td>8h07</td>
+                        <td>
+                            <span class="badge success">
+                                Đúng giờ
+                            </span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Trần Thị Bình</td>
+                        <td>Ca chiều</td>
+                        <td>14:12</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>
+                            <span class="badge warning">
+                                Đi muộn
+                            </span>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+        <!-- ALERTS -->
+
+        <section class="alerts">
+
+            <div class="alert-card warning-card">
+                ⚠ 3 nhân viên đi muộn hôm nay
+            </div>
+
+            <div class="alert-card danger-card">
+                ❌ 2 nhân viên chưa check out
+            </div>
+
+        </section>
+
+    </main>
 
 </div>
 
 </body>
-</html>

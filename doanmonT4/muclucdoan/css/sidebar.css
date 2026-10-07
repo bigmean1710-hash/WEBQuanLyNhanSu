@@ -1,0 +1,177 @@
+/* RESET */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:#f4f7fc;
+    color:#0f172a;
+}
+
+/* LAYOUT */
+
+.layout{
+    display:flex;
+    min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:280px;
+    background:#fff;
+    border-right:1px solid #e2e8f0;
+    padding:24px;
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    overflow-y:auto;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:35px;
+}
+
+.logo-icon{
+    width:50px;
+    height:50px;
+    border-radius:14px;
+
+    background:linear-gradient(
+        135deg,
+        #2563eb,
+        #4f46e5
+    );
+
+    color:white;
+    font-weight:800;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.brand h2{
+    font-size:18px;
+}
+
+.brand p{
+    color:#64748b;
+    font-size:13px;
+}
+
+/* MENU */
+
+.sidebar-menu{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.sidebar-menu a{
+    text-decoration:none;
+    color:#334155;
+
+    padding:14px 16px;
+
+    border-radius:12px;
+
+    transition:.25s;
+    font-weight:500;
+}
+
+.sidebar-menu a:hover{
+    background:#eef4ff;
+    color:#2563eb;
+}
+
+.sidebar-menu a.active{
+    background:linear-gradient(
+        135deg,
+        #2563eb,
+        #4f46e5
+    );
+
+    color:white;
+}
+
+/* MAIN */
+
+.main-content{
+    flex:1;
+    margin-left:280px;
+    padding:30px;
+}
+
+/* PAGE HEADER */
+
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.page-header h1{
+    font-size:32px;
+    font-weight:800;
+}
+
+.page-header p{
+    color:#64748b;
+    margin-top:5px;
+}
+
+/* BUTTON */
+
+.btn-primary{
+    border:none;
+    cursor:pointer;
+    color:white;
+
+    padding:14px 22px;
+    border-radius:12px;
+
+    background:linear-gradient(
+        135deg,
+        #2563eb,
+        #4f46e5
+    );
+
+    font-weight:600;
+}
+
+.btn-light{
+    border:1px solid #dbe4f0;
+    background:white;
+    padding:12px 18px;
+    border-radius:12px;
+    cursor:pointer;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:992px){
+
+    .sidebar{
+        width:100%;
+        position:relative;
+        border-right:none;
+    }
+
+    .layout{
+        flex-direction:column;
+    }
+
+    .main-content{
+        margin-left:0;
+    }
+}

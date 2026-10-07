@@ -1,62 +1,248 @@
-<!DOCTYPE html>
-<html lang="vi">
 <head>
+
 <meta charset="UTF-8">
-<title>Bảng lương</title>
-<link rel="stylesheet" href="../css/pages.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GUY HRM - Bảng lương</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet" href="../css/sidebar.css">
+<link rel="stylesheet" href="../css/payroll.css">
+
 </head>
 <body>
 
-<div class="page-container">
+<div class="layout">
 
-<div class="page-header">
+    <!-- SIDEBAR -->
 
-<h1>💰 Bảng lương</h1>
+    <aside class="sidebar">
 
-<div>
-<button class="action-btn">Xuất Excel</button>
-<button class="primary-btn">Xuất PDF</button>
-</div>
+        <div class="brand">
+            <div class="logo-icon">G</div>
 
-</div>
+            <div>
+                <h2>GUY HRM</h2>
+                <p>Quản lý nhân sự</p>
+            </div>
+        </div>
 
-<div class="stat-card">
-<h2>248.500.000 VNĐ</h2>
-<p>Tổng quỹ lương tháng</p>
-</div>
+        <nav class="sidebar-menu">
 
-<br>
+            <a href="../dashboard.html">
+                📊 Tổng quan
+            </a>
 
-<div class="content-card">
+            <a href="employees.html">
+                👥 Nhân sự
+            </a>
 
-<table>
+            <a href="schedule.html">
+                📅 Lịch làm việc
+            </a>
 
-<tr>
-<th>Nhân viên</th>
-<th>Ngày công</th>
-<th>OT</th>
-<th>Lương</th>
-</tr>
+            <a href="attendance.html">
+                ⏱ Chấm công
+            </a>
 
-<tr>
-<td>Nguyễn Văn A</td>
-<td>26</td>
-<td>12h</td>
-<td>12.500.000</td>
-</tr>
+            <a href="payroll.html" class="active">
+                💰 Bảng lương
+            </a>
 
-<tr>
-<td>Trần Thị B</td>
-<td>25</td>
-<td>8h</td>
-<td>11.200.000</td>
-</tr>
+            <a href="reports.html">
+                📈 Báo cáo
+            </a>
 
-</table>
+            <a href="permission.html">
+                🔐 Phân quyền
+            </a>
 
-</div>
+            <a href="settings.html">
+                ⚙️ Cài đặt
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <!-- MAIN -->
+
+    <main class="main-content">
+
+        <div class="page-header">
+
+            <div>
+
+                <h1>💰 Quản lý bảng lương</h1>
+
+                <p>
+                    Tổng hợp và quản lý lương nhân viên
+                </p>
+
+            </div>
+
+            <div class="header-actions">
+
+                <button class="btn-light">
+                    📤 Xuất Excel
+                </button>
+
+                <button class="btn-primary">
+                    💵 Tính lương
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- KPI -->
+
+        <section class="stats-grid">
+
+            <div class="stat-card">
+                <h2>485M</h2>
+                <p>Tổng quỹ lương</p>
+            </div>
+
+            <div class="stat-card">
+                <h2>56</h2>
+                <p>Nhân viên nhận lương</p>
+            </div>
+
+            <div class="stat-card">
+                <h2>328h</h2>
+                <p>Tăng ca</p>
+            </div>
+
+            <div class="stat-card">
+                <h2>4</h2>
+                <p>Chờ duyệt</p>
+            </div>
+
+        </section>
+
+        <!-- FILTER -->
+
+        <section class="toolbar">
+
+            <select>
+                <option>Tháng 10/2026</option>
+            </select>
+
+            <select>
+                <option>Tất cả phòng ban</option>
+            </select>
+
+            <input
+                type="text"
+                placeholder="Tìm nhân viên...">
+
+        </section>
+
+        <!-- TABLE -->
+
+        <section class="table-card">
+
+            <div class="table-header">
+
+                <h2>Bảng lương tháng</h2>
+
+            </div>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Mã NV</th>
+                        <th>Nhân viên</th>
+                        <th>Ngày công</th>
+                        <th>OT</th>
+                        <th>Lương CB</th>
+                        <th>Phụ cấp</th>
+                        <th>Thưởng</th>
+                        <th>Khấu trừ</th>
+                        <th>Thực nhận</th>
+                        <th></th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>NV001</td>
+
+                        <td>Nguyễn Văn An</td>
+
+                        <td>26</td>
+
+                        <td>12h</td>
+
+                        <td>8.000.000</td>
+
+                        <td>500.000</td>
+
+                        <td>1.200.000</td>
+
+                        <td>300.000</td>
+
+                        <td class="salary">
+                            9.400.000
+                        </td>
+
+                        <td>
+
+                            <a href="payroll-detail.html"
+                            class="view-btn">
+                                Xem
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+        <!-- SUMMARY -->
+
+        <section class="summary-grid">
+
+            <div class="summary-card">
+
+                <h3>📊 Tổng hợp chi phí</h3>
+
+                <p>Tổng lương cơ bản: 390.000.000</p>
+                <p>Tổng phụ cấp: 28.000.000</p>
+                <p>Tổng thưởng: 42.000.000</p>
+
+            </div>
+
+            <div class="summary-card">
+
+                <h3>🔐 Trạng thái duyệt</h3>
+
+                <p>Nhân sự: Đã duyệt</p>
+                <p>Kế toán: Đã duyệt</p>
+                <p>Giám đốc: Chờ duyệt</p>
+
+            </div>
+
+        </section>
+
+    </main>
 
 </div>
 
 </body>
-</html>

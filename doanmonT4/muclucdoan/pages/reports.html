@@ -1,42 +1,245 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
 <meta charset="UTF-8">
-<title>Báo cáo</title>
-<link rel="stylesheet" href="../css/pages.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GUY HRM - Báo cáo</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet" href="../css/sidebar.css">
+<link rel="stylesheet" href="../css/reports.css">
+
 </head>
+
 <body>
 
-<div class="page-container">
+<div class="layout">
 
-<h1>📈 Báo cáo</h1>
+<!-- SIDEBAR -->
 
-<br>
+<aside class="sidebar">
 
-<div class="grid-3">
+<div class="brand">
+<div class="logo-icon">G</div>
 
-<div class="content-card">
-<h3>Nhân sự</h3>
-<div class="chart-placeholder">
-Biểu đồ nhân sự
+<div>
+<h2>GUY HRM</h2>
+<p>Quản lý nhân sự</p>
 </div>
 </div>
 
-<div class="content-card">
-<h3>Chấm công</h3>
-<div class="chart-placeholder">
-Biểu đồ chấm công
-</div>
+<nav class="sidebar-menu">
+
+<a href="../dashboard.html">
+📊 Tổng quan
+</a>
+
+<a href="employees.html">
+👥 Nhân sự
+</a>
+
+<a href="schedule.html">
+📅 Lịch làm việc
+</a>
+
+<a href="attendance.html">
+⏱ Chấm công
+</a>
+
+<a href="payroll.html">
+💰 Bảng lương
+</a>
+
+<a href="reports.html" class="active">
+📈 Báo cáo
+</a>
+
+<a href="permission.html">
+🔐 Phân quyền
+</a>
+
+<a href="settings.html">
+⚙️ Cài đặt
+</a>
+
+</nav>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main-content">
+
+<div class="page-header">
+
+<div>
+<h1>📈 Báo cáo hệ thống</h1>
+<p>Theo dõi hiệu suất hoạt động nhân sự và tài chính</p>
 </div>
 
-<div class="content-card">
-<h3>Chi phí</h3>
-<div class="chart-placeholder">
-Biểu đồ chi phí
-</div>
+<div class="header-actions">
+
+<button class="btn-light">
+📅 Tháng này
+</button>
+
+<button class="btn-primary">
+📤 Xuất báo cáo
+</button>
+
 </div>
 
 </div>
+
+<!-- KPI -->
+
+<section class="stats-grid">
+
+<div class="stat-card">
+<h2>56</h2>
+<p>Tổng nhân viên</p>
+</div>
+
+<div class="stat-card">
+<h2>94%</h2>
+<p>Tỷ lệ đi làm</p>
+</div>
+
+<div class="stat-card">
+<h2>8.540h</h2>
+<p>Tổng giờ công</p>
+</div>
+
+<div class="stat-card">
+<h2>468M</h2>
+<p>Tổng quỹ lương</p>
+</div>
+
+</section>
+
+<!-- REPORT GRID -->
+
+<section class="report-grid">
+
+<div class="report-card large">
+
+<h3>Báo cáo nhân sự</h3>
+
+<table>
+
+<tr>
+<th>Phòng ban</th>
+<th>Nhân viên</th>
+</tr>
+
+<tr>
+<td>Bán hàng</td>
+<td>22</td>
+</tr>
+
+<tr>
+<td>Thu ngân</td>
+<td>12</td>
+</tr>
+
+<tr>
+<td>Kho vận</td>
+<td>15</td>
+</tr>
+
+<tr>
+<td>Nhân sự</td>
+<td>7</td>
+</tr>
+
+</table>
+
+</div>
+
+<div class="report-card">
+
+<h3>Đi làm đúng giờ</h3>
+
+<div class="progress-box">
+
+<div class="circle">
+94%
+</div>
+
+<p>Đạt mục tiêu</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ATTENDANCE REPORT -->
+
+<section class="table-card">
+
+<h3>Báo cáo chấm công</h3>
+
+<table>
+
+<tr>
+<th>Chỉ số</th>
+<th>Số lượng</th>
+</tr>
+
+<tr>
+<td>Đi muộn</td>
+<td>14</td>
+</tr>
+
+<tr>
+<td>Vắng mặt</td>
+<td>5</td>
+</tr>
+
+<tr>
+<td>Tăng ca</td>
+<td>32</td>
+</tr>
+
+<tr>
+<td>Nghỉ phép</td>
+<td>11</td>
+</tr>
+
+</table>
+
+</section>
+
+<!-- QUICK ACTION -->
+
+<section class="quick-grid">
+
+<div class="quick-card">
+📄 Xuất PDF
+</div>
+
+<div class="quick-card">
+📊 Xuất Excel
+</div>
+
+<div class="quick-card">
+👥 Báo cáo nhân sự
+</div>
+
+<div class="quick-card">
+💰 Báo cáo lương
+</div>
+
+</section>
+
+</main>
 
 </div>
 

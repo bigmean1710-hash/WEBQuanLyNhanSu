@@ -2,305 +2,326 @@
 <html lang="vi">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GUY HRM Dashboard</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="css/dashboard.css">
+<title>GUY HRM - Tổng quan</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet" href="css/sidebar.css">
+<link rel="stylesheet" href="css/dashboard.css">
+
 </head>
 
 <body>
 
-    <div class="layout">
+<div class="layout">
 
-        <!-- SIDEBAR -->
+    <!-- SIDEBAR -->
 
-        <aside class="sidebar">
+    <aside class="sidebar">
 
-            <div class="brand">
+        <div class="brand">
 
-                <div class="logo-icon">
-                    G
+            <div class="logo-icon">
+                G
+            </div>
+
+            <div>
+                <h2>GUY HRM</h2>
+                <p>Quản lý nhân sự</p>
+            </div>
+
+        </div>
+
+        <nav class="sidebar-menu">
+
+            <a href="dashboard.html" class="active">
+                📊 Tổng quan
+            </a>
+
+            <a href="pages/employees.html">
+                👥 Nhân sự
+            </a>
+
+            <a href="pages/schedule.html">
+                📅 Lịch làm việc
+            </a>
+
+            <a href="pages/attendance.html">
+                ⏱ Chấm công
+            </a>
+
+            <a href="pages/payroll.html">
+                💰 Bảng lương
+            </a>
+
+            <a href="pages/reports.html">
+                📈 Báo cáo
+            </a>
+
+            <a href="pages/permission.html">
+                🔐 Phân quyền
+            </a>
+
+            <a href="pages/settings.html">
+                ⚙️ Cài đặt
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+        <!-- HEADER -->
+
+        <div class="page-header">
+
+            <div>
+
+                <h1>📊 Tổng quan hệ thống</h1>
+
+                <p>
+                    Theo dõi hoạt động nhân sự theo thời gian thực
+                </p>
+
+            </div>
+
+            <div class="header-actions">
+
+                <button class="btn-secondary">
+                    📅 Hôm nay
+                </button>
+
+                <button class="btn-primary">
+                    📥 Xuất báo cáo
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- KPI -->
+
+        <section class="dashboard-grid">
+
+            <div class="kpi-card">
+                <div class="kpi-icon">👥</div>
+                <h2>56</h2>
+                <p>Tổng nhân viên</p>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon">✅</div>
+                <h2>48</h2>
+                <p>Đang làm việc</p>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon">📝</div>
+                <h2>8</h2>
+                <p>Thử việc</p>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon">🏖</div>
+                <h2>4</h2>
+                <p>Nghỉ phép</p>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon">⏰</div>
+                <h2>3</h2>
+                <p>Đi muộn hôm nay</p>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon">💰</div>
+                <h2>248M</h2>
+                <p>Quỹ lương tháng</p>
+            </div>
+
+        </section>
+
+        <!-- ROW 1 -->
+
+        <section class="content-grid">
+
+            <div class="card">
+
+                <div class="card-title">
+                    ⏱ Chấm công hôm nay
                 </div>
 
-                <div>
-                    <h2>GUY HRM</h2>
-                    <p>Quản lý nhân sự</p>
+                <div class="attendance-stats">
+
+                    <div>
+                        <strong>45</strong>
+                        <span>Đúng giờ</span>
+                    </div>
+
+                    <div>
+                        <strong>3</strong>
+                        <span>Đi muộn</span>
+                    </div>
+
+                    <div>
+                        <strong>1</strong>
+                        <span>Vắng mặt</span>
+                    </div>
+
+                    <div>
+                        <strong>5</strong>
+                        <span>Tăng ca</span>
+                    </div>
+
                 </div>
 
             </div>
 
-            <nav class="menu">
+            <div class="card">
 
-                <a href="#" class="active"> Tổng quan</a>
-
-                <a href="pages/employees.html"> Nhân sự</a>
-
-                <a href="pages/schedule.html"> Lịch làm việc</a>
-
-                <a href="pages/attendance.html"> Chấm công</a>
-
-                <a href="pages/payroll.html">Bảng Lương</a>
-
-                <a href="pages/reports.html"> Báo cáo</a>
-
-                <a href="pages/permission.html"> Phân quyền</a>
-
-                <a href="pages/settings.html">⚙ Cài đặt</a>
-
-            </nav>
-
-        </aside>
-
-        <!-- CONTENT -->
-
-        <main class="content">
-
-            <!-- TOPBAR -->
-
-            <header class="topbar">
-
-                <div class="search-box">
-
-                    <input
-                        type="text"
-                        placeholder="Tìm kiếm nhân viên, phòng ban, báo cáo...">
-
+                <div class="card-title">
+                    📅 Lịch làm việc hôm nay
                 </div>
 
-                <div class="top-right">
+                <ul class="simple-list">
 
-                    <button class="notification">
-                        🔔
-                    </button>
+                    <li>Ca sáng: 18 nhân viên</li>
+                    <li>Ca chiều: 20 nhân viên</li>
+                    <li>Ca tối: 10 nhân viên</li>
 
-                    <div class="user-profile">
+                </ul>
 
-                        <div class="avatar">
-                            LN
-                        </div>
+            </div>
 
-                        <div>
-                            <h4>Lê Đại Nghĩa</h4>
-                            <p>Quản trị viên</p>
-                        </div>
+        </section>
 
-                    </div>
+        <!-- ROW 2 -->
 
+        <section class="content-grid">
+
+            <div class="card warning-card">
+
+                <div class="card-title">
+                    ⚠ Cảnh báo hệ thống
                 </div>
 
-            </header>
+                <ul class="simple-list">
 
-            <!-- WELCOME -->
+                    <li>Ca chiều thứ 7 thiếu 2 nhân viên</li>
+                    <li>4 yêu cầu đổi ca đang chờ</li>
+                    <li>3 hợp đồng sắp hết hạn</li>
 
-            <section class="welcome">
+                </ul>
 
-                <h1>Xin chào, Lê Đại Nghĩa 👋</h1>
+            </div>
 
-                <p>
-                    Chào mừng bạn quay trở lại hệ thống quản lý nhân sự GUY HRM.
-                </p>
+            <div class="card">
 
-            </section>
-
-            <!-- KPI -->
-
-            <section class="stats-grid">
-
-                <div class="stat-card">
-
-                    <div class="stat-icon">
-                        👥
-                    </div>
-
-                    <div>
-                        <h2>56</h2>
-                        <p>Tổng nhân viên</p>
-                    </div>
-
+                <div class="card-title">
+                    📌 Yêu cầu cần duyệt
                 </div>
 
-                <div class="stat-card">
+                <ul class="simple-list">
 
-                    <div class="stat-icon">
-                        ✅
-                    </div>
+                    <li>2 yêu cầu nghỉ phép</li>
+                    <li>4 yêu cầu đổi ca</li>
+                    <li>1 hồ sơ nhân viên mới</li>
 
-                    <div>
-                        <h2>48</h2>
-                        <p>Đang làm việc</p>
-                    </div>
+                </ul>
 
-                </div>
+            </div>
 
-                <div class="stat-card">
+        </section>
 
-                    <div class="stat-icon">
-                        📅
-                    </div>
+        <!-- HOẠT ĐỘNG -->
 
-                    <div>
-                        <h2>12</h2>
-                        <p>Ca hôm nay</p>
-                    </div>
+        <section class="card activity-card">
 
-                </div>
+            <div class="card-title">
+                🕒 Hoạt động gần đây
+            </div>
 
-                <div class="stat-card">
+            <table>
 
-                    <div class="stat-icon">
-                        ⚠️
-                    </div>
+                <thead>
 
-                    <div>
-                        <h2>3</h2>
-                        <p>Đi muộn</p>
-                    </div>
+                    <tr>
+                        <th>Thời gian</th>
+                        <th>Người dùng</th>
+                        <th>Hoạt động</th>
+                    </tr>
 
-                </div>
+                </thead>
 
-            </section>
+                <tbody>
 
-            <!-- CHARTS -->
+                    <tr>
+                        <td>09:15</td>
+                        <td>Nguyễn Văn A</td>
+                        <td>Chấm công vào ca</td>
+                    </tr>
 
-            <section class="chart-grid">
+                    <tr>
+                        <td>09:30</td>
+                        <td>Admin</td>
+                        <td>Thêm nhân viên mới</td>
+                    </tr>
 
-                <div class="chart-card">
+                    <tr>
+                        <td>10:05</td>
+                        <td>Quản lý</td>
+                        <td>Duyệt yêu cầu đổi ca</td>
+                    </tr>
 
-                    <h3>Biến động nhân sự</h3>
+                </tbody>
 
-                    <div class="chart-area">
+            </table>
 
-                        <span>Biểu đồ nhân sự</span>
+        </section>
 
-                    </div>
+        <!-- QUICK ACTION -->
 
-                </div>
+        <section class="quick-grid">
 
-                <div class="chart-card">
+            <a href="pages/employees.html" class="quick-card">
+                👥 Quản lý nhân sự
+            </a>
 
-                    <h3>Tỷ lệ phòng ban</h3>
+            <a href="pages/schedule.html" class="quick-card">
+                📅 Lịch làm việc
+            </a>
 
-                    <div class="pie-area">
+            <a href="pages/attendance.html" class="quick-card">
+                ⏱ Chấm công
+            </a>
 
-                        <span>Pie Chart</span>
+            <a href="pages/payroll.html" class="quick-card">
+                💰 Bảng lương
+            </a>
 
-                    </div>
+            <a href="pages/reports.html" class="quick-card">
+                📊 Báo cáo
+            </a>
 
-                </div>
+            <a href="pages/permission.html" class="quick-card">
+                🔐 Phân quyền
+            </a>
 
-            </section>
+        </section>
 
-            <!-- INFO GRID -->
+    </main>
 
-            <section class="info-grid">
-
-                <!-- NOTICE -->
-
-                <div class="notice-card">
-
-                    <h3>Thông báo hệ thống</h3>
-
-                    <ul>
-
-                        <li>3 nhân viên đi muộn hôm nay</li>
-
-                        <li>2 đơn nghỉ phép đang chờ duyệt</li>
-
-                        <li>1 ca làm chưa được phân công</li>
-
-                        <li>Cập nhật lịch làm việc tuần mới</li>
-
-                    </ul>
-
-                </div>
-
-                <!-- QUICK ACTION -->
-
-                <div class="notice-card">
-
-                    <h3>Thao tác nhanh</h3>
-
-                    <div class="quick-grid">
-
-                        <button>➕ Thêm nhân viên</button>
-
-                        <button>📅 Tạo ca</button>
-
-                        <button>⏱ Chấm công</button>
-
-                        <button>📊 Xuất báo cáo</button>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-            <!-- EMPLOYEE TABLE -->
-
-            <section class="employee-table">
-
-                <h3>Nhân viên nổi bật</h3>
-
-                <table>
-
-                    <thead>
-
-                        <tr>
-
-                            <th>Họ tên</th>
-                            <th>Phòng ban</th>
-                            <th>Chức vụ</th>
-                            <th>Hiệu suất</th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                        <tr>
-
-                            <td>Nguyễn Văn A</td>
-                            <td>Bán hàng</td>
-                            <td>Nhân viên</td>
-                            <td>98%</td>
-
-                        </tr>
-
-                        <tr>
-
-                            <td>Trần Thị B</td>
-                            <td>Thu ngân</td>
-                            <td>Nhân viên</td>
-                            <td>95%</td>
-
-                        </tr>
-
-                        <tr>
-
-                            <td>Lê Văn C</td>
-                            <td>Kho</td>
-                            <td>Tổ trưởng</td>
-                            <td>92%</td>
-
-                        </tr>
-
-                    </tbody>
-
-                </table>
-
-            </section>
-
-        </main>
-
-    </div>
+</div>
 
 </body>
-
 </html>
