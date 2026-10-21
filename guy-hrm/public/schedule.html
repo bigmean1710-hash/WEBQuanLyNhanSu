@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUY HRM - Lịch làm việc</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">G</div>
+                <div class="sidebar-brand"><h3>GUY HRM</h3><span>Quản lý nhân sự</span></div>
+            </div>
+            <nav class="sidebar-nav">
+    <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span> Tổng quan</a>
+    <a href="employees.html" class="nav-item"><span class="nav-icon">👥</span> Nhân sự</a>
+    <a href="schedule.html" class="nav-item"><span class="nav-icon">📅</span> Lịch làm việc</a>
+    <a href="attendance.html" class="nav-item"><span class="nav-icon">⏱️</span> Chấm công</a>
+    <a href="leave-request.html" class="nav-item"><span class="nav-icon">📝</span> Nghỉ phép</a>
+    <a href="leave-approval.html" class="nav-item"><span class="nav-icon">✅</span> Duyệt đơn</a>
+    <div class="nav-section-title">Tài chính</div>
+    <a href="salary.html" class="nav-item"><span class="nav-icon">💰</span> Bảng lương</a>
+    <a href="report.html" class="nav-item"><span class="nav-icon">📈</span> Báo cáo</a>
+    <div class="nav-section-title">Hệ thống</div>
+    <a href="permission.html" class="nav-item"><span class="nav-icon">🔒</span> Phân quyền</a>
+    <a href="settings.html" class="nav-item"><span class="nav-icon">️⚙️</span> Cài đặt</a>
+</nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-user-avatar">LN</div>
+                    <div class="sidebar-user-info"><h4>Lê Đại Nghĩa</h4><span>Quản trị viên</span></div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <div class="page-header-left">
+                    <h1>📅 Lịch làm việc</h1>
+                    <p>Quản lý lịch làm việc và phân công ca nhân viên</p>
+                </div>
+                <div class="page-header-actions">
+                    <button class="btn btn-outline btn-sm">🔄 Đăng ký đổi ca</button>
+                    <button class="btn btn-outline btn-sm"> Sao chép tuần</button>
+                    <button class="btn btn-outline btn-sm">📥 Xuất Excel</button>
+                    <button class="btn btn-primary btn-sm">＋ Tạo lịch mới</button>
+                </div>
+            </div>
+
+            <div class="page-content">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-icon blue"></div>
+                        <div class="stat-card-value">128</div>
+                        <div class="stat-card-label">Tổng ca tuần</div>
+                        <div class="stat-card-change positive">+12% so với tuần trước</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-icon green">👥</div>
+                        <div class="stat-card-value">48</div>
+                        <div class="stat-card-label">Nhân viên đã phân ca</div>
+                        <div class="stat-card-change positive">Đạt 100%</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-icon orange">📊</div>
+                        <div class="stat-card-value">96%</div>
+                        <div class="stat-card-label">Tỷ lệ phủ ca</div>
+                        <div class="stat-card-change positive">Ổn định</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-icon red">⚠️</div>
+                        <div class="stat-card-value">3</div>
+                        <div class="stat-card-label">Ca thiếu người</div>
+                        <div class="stat-card-change negative">Cần xử lý</div>
+                    </div>
+                </div>
+
+                <div class="filter-bar">
+                    <select><option>Tuần 41 - 2026</option><option>Tuần 42 - 2026</option></select>
+                    <select><option>Tất cả phòng ban</option><option>Bán hàng</option><option>Thu ngân</option></select>
+                    <select><option>Tất cả ca làm</option><option>Ca sáng</option><option>Ca chiều</option></select>
+                    <input type="search" placeholder="🔍 Tìm nhân viên...">
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Lịch làm việc tuần</h3>
+                        <div class="legend">
+                            <div class="legend-item"><div class="legend-dot blue"></div> Ca sáng</div>
+                            <div class="legend-item"><div class="legend-dot orange"></div> Ca chiều</div>
+                            <div class="legend-item"><div class="legend-dot purple"></div> Ca tối</div>
+                        </div>
+                    </div>
+                    <div class="card-body no-padding">
+                        <div class="table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr><th>Nhân viên</th><th>T2</th><th>T3</th><th>T4</th><th>T5</th><th>T6</th><th>T7</th><th>CN</th><th>Tổng giờ</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><div class="employee-cell"><div class="employee-avatar blue">NA</div><div class="employee-info"><h4>Nguyễn Văn An</h4><span>Bán hàng</span></div></div></td>
+                                        <td><span class="shift-badge morning">S</span></td>
+                                        <td><span class="shift-badge morning">S</span></td>
+                                        <td><span class="shift-badge afternoon">C</span></td>
+                                        <td><span class="shift-badge afternoon">C</span></td>
+                                        <td><span class="shift-badge morning">S</span></td>
+                                        <td><span class="shift-badge off">-</span></td>
+                                        <td><span class="shift-badge off">-</span></td>
+                                        <td><strong>40h</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="employee-cell"><div class="employee-avatar green">TB</div><div class="employee-info"><h4>Trần Thị Bình</h4><span>Thu ngân</span></div></div></td>
+                                        <td><span class="shift-badge afternoon">C</span></td>
+                                        <td><span class="shift-badge afternoon">C</span></td>
+                                        <td><span class="shift-badge night">T</span></td>
+                                        <td><span class="shift-badge night">T</span></td>
+                                        <td><span class="shift-badge morning">S</span></td>
+                                        <td><span class="shift-badge morning">S</span></td>
+                                        <td><span class="shift-badge off">-</span></td>
+                                        <td><strong>48h</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="employee-cell"><div class="employee-avatar orange">MQ</div><div class="employee-info"><h4>Nguyễn Minh Quân</h4><span>Bán hàng</span></div></div></td>
+                                        <td><span class="shift-badge morning">S</span></td>
+                                        <td><span class="shift-badge morning">S</span></td>
+                                        <td><span class="shift-badge morning">S</span></td>
+                                        <td><span class="shift-badge afternoon">C</span></td>
+                                        <td><span class="shift-badge afternoon">C</span></td>
+                                        <td><span class="shift-badge off">-</span></td>
+                                        <td><span class="shift-badge off">-</span></td>
+                                        <td><strong>40h</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="employee-cell"><div class="employee-avatar purple">HL</div><div class="employee-info"><h4>Hoàng Phương Linh</h4><span>Thu ngân</span></div></div></td>
+                                        <td><span class="shift-badge afternoon">C</span></td>
+                                        <td><span class="shift-badge afternoon">C</span></td>
+                                        <td><span class="shift-badge afternoon">C</span></td>
+                                        <td><span class="shift-badge night">T</span></td>
+                                        <td><span class="shift-badge night">T</span></td>
+                                        <td><span class="shift-badge morning">S</span></td>
+                                        <td><span class="shift-badge off">-</span></td>
+                                        <td><strong>44h</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="employee-cell"><div class="employee-avatar red">TH</div><div class="employee-info"><h4>Trần Gia Huy</h4><span>Kho vận</span></div></div></td>
+                                        <td><span class="shift-badge morning">S</span></td>
+                                        <td><span class="shift-badge morning">S</span></td>
+                                        <td><span class="shift-badge morning">S</span></td>
+                                        <td><span class="shift-badge morning">S</span></td>
+                                        <td><span class="shift-badge morning">S</span></td>
+                                        <td><span class="shift-badge off">-</span></td>
+                                        <td><span class="shift-badge off">-</span></td>
+                                        <td><strong>40h</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-grid content-grid-2">
+                    <div class="card">
+                        <div class="card-header"><h3>🔄 Yêu cầu đổi ca</h3></div>
+                        <div class="card-body">
+                            <div class="swap-request">
+                                <div class="swap-request-info">
+                                    <h4>Nguyễn Văn An</h4>
+                                    <p>Đổi ca sáng thứ 5 sang ca chiều</p>
+                                </div>
+                                <div class="swap-request-actions">
+                                    <button class="btn btn-success btn-sm" onclick="showToast('Đã duyệt','success')">Duyệt</button>
+                                    <button class="btn btn-danger btn-sm" onclick="showToast('Đã từ chối','warning')">Từ chối</button>
+                                </div>
+                            </div>
+                            <div class="swap-request">
+                                <div class="swap-request-info">
+                                    <h4>Hoàng Phương Linh</h4>
+                                    <p>Đổi ca chiều thứ 3 sang ca sáng</p>
+                                </div>
+                                <div class="swap-request-actions">
+                                    <button class="btn btn-success btn-sm" onclick="showToast('Đã duyệt','success')">Duyệt</button>
+                                    <button class="btn btn-danger btn-sm" onclick="showToast('Đã từ chối','warning')">Từ chối</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header"><h3>⚠️ Cảnh báo nhân sự</h3></div>
+                        <div class="card-body">
+                            <ul class="warning-list">
+                                <li>Ca chiều thứ 7 thiếu 2 nhân viên</li>
+                                <li>Ca tối chủ nhật thiếu 1 nhân viên</li>
+                                <li>Trần Gia Huy làm việc 5 ngày liên tiếp - cần nghỉ</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="js/app.js"></script>
+</body>
+</html> 

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>GUY HRM - Phân quyền</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">G</div>
+                <div class="sidebar-brand"><h3>GUY HRM</h3><span>Quản lý nhân sự</span></div>
+            </div>
+            <nav class="sidebar-nav">
+    <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span> Tổng quan</a>
+    <a href="employees.html" class="nav-item"><span class="nav-icon">👥</span> Nhân sự</a>
+    <a href="schedule.html" class="nav-item"><span class="nav-icon">📅</span> Lịch làm việc</a>
+    <a href="attendance.html" class="nav-item"><span class="nav-icon">⏱️</span> Chấm công</a>
+    <a href="leave-request.html" class="nav-item"><span class="nav-icon">📝</span> Nghỉ phép</a>
+    <a href="leave-approval.html" class="nav-item"><span class="nav-icon">✅</span> Duyệt đơn</a>
+    <div class="nav-section-title">Tài chính</div>
+    <a href="salary.html" class="nav-item"><span class="nav-icon">💰</span> Bảng lương</a>
+    <a href="report.html" class="nav-item"><span class="nav-icon">📈</span> Báo cáo</a>
+    <div class="nav-section-title">Hệ thống</div>
+    <a href="permission.html" class="nav-item"><span class="nav-icon">🔒</span> Phân quyền</a>
+    <a href="settings.html" class="nav-item"><span class="nav-icon">️⚙️</span> Cài đặt</a>
+</nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-user-avatar">LN</div>
+                    <div class="sidebar-user-info"><h4>Lê Đại Nghĩa</h4><span>Quản trị viên</span></div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <div class="page-header-left">
+                    <h1>🔒 Phân quyền hệ thống</h1>
+                    <p>Quản lý vai trò, quyền truy cập và tài khoản người dùng</p>
+                </div>
+                <div class="page-header-actions">
+                    <button class="btn btn-primary btn-sm">＋ Thêm vai trò</button>
+                </div>
+            </div>
+
+            <div class="page-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>👥 Danh sách tài khoản</h3>
+                    </div>
+                    <div class="card-body no-padding">
+                        <div class="table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Họ tên</th>
+                                        <th>Email</th>
+                                        <th>Vai trò</th>
+                                        <th>Ngày tạo</th>
+                                        <th>Trạng thái</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="usersTableBody">
+                                    <tr><td colspan="5" style="text-align:center;padding:40px">Đang tải...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="js/app.js"></script>
+    <script>
+        async function loadUsers() {
+            try {
+                const res = await fetch('../api/users.php');
+                const data = await res.json();
+                
+                if (data.users && data.users.length > 0) {
+                    renderUsersTable(data.users);
+                } else {
+                    document.getElementById('usersTableBody').innerHTML = 
+                        '<tr><td colspan="5" style="text-align:center;padding:40px;color:#9CA3AF">Chưa có tài khoản nào</td></tr>';
+                }
+            } catch(e) {
+                console.error('Lỗi:', e);
+                document.getElementById('usersTableBody').innerHTML = 
+                    '<tr><td colspan="5" style="text-align:center;padding:40px;color:#EF4444">Lỗi kết nối database</td></tr>';
+            }
+        }
+
+        function renderUsersTable(users) {
+            const tbody = document.getElementById('usersTableBody');
+            const colors = ['blue', 'green', 'orange', 'purple', 'red'];
+            
+            tbody.innerHTML = users.map((u, i) => {
+                const initials = u.full_name.split(' ').pop().substring(0,2).toUpperCase();
+                const color = colors[i % colors.length];
+                const roleMap = {
+                    'admin': ['badge-danger', 'Quản trị viên'],
+                    'manager': ['badge-info', 'Quản lý'],
+                    'staff': ['badge-warning', 'Nhân viên']
+                };
+                const [badgeClass, badgeText] = roleMap[u.role] || ['badge-info', u.role];
+                const statusBadge = u.status === 'active' ? 
+                    '<span class="badge badge-success">Hoạt động</span>' : 
+                    '<span class="badge badge-danger">Bị khóa</span>';
+                const createdDate = u.last_login ? new Date(u.last_login).toLocaleDateString('vi-VN') : '-';
+                
+                return `
+                    <tr>
+                        <td>
+                            <div class="employee-cell">
+                                <div class="employee-avatar ${color}">${initials}</div>
+                                <div class="employee-info">
+                                    <h4>${u.full_name}</h4>
+                                </div>
+                            </div>
+                        </td>
+                        <td>${u.email}</td>
+                        <td><span class="badge ${badgeClass}">${badgeText}</span></td>
+                        <td>${createdDate}</td>
+                        <td>${statusBadge}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        loadUsers();
+    </script>
+</body>
+</html>

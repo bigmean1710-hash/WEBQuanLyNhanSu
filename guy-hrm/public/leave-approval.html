@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUY HRM - Duyệt đơn nghỉ phép</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .approval-header {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: white;
+            padding: 32px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+        }
+        .approval-header h1 { font-size: 28px; margin-bottom: 8px; }
+        .approval-header p { opacity: 0.9; }
+        
+        .stats-grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .stat-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #F3F4F6;
+            text-align: center;
+        }
+        .stat-box .value { font-size: 28px; font-weight: 800; margin-bottom: 4px; }
+        .stat-box .label { font-size: 13px; color: #6B7280; }
+        .stat-box.pending { border-left: 4px solid #F59E0B; }
+        .stat-box.pending .value { color: #F59E0B; }
+        .stat-box.approved { border-left: 4px solid #10B981; }
+        .stat-box.approved .value { color: #10B981; }
+        .stat-box.rejected { border-left: 4px solid #EF4444; }
+        .stat-box.rejected .value { color: #EF4444; }
+        .stat-box.total { border-left: 4px solid #3B5BDB; }
+        .stat-box.total .value { color: #3B5BDB; }
+        
+        .filter-bar {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 12px;
+            border: 1px solid #F3F4F6;
+            margin-bottom: 24px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .filter-bar select, .filter-bar input {
+            padding: 10px 14px;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        .filter-bar input[type="search"] { flex: 1; min-width: 200px; }
+        
+        .approval-card {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #F3F4F6;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+        .approval-card .card-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #F3F4F6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .approval-card .card-header h3 { font-size: 18px; display: flex; align-items: center; gap: 8px; }
+        
+        .approval-item {
+            padding: 24px;
+            border-bottom: 1px solid #F3F4F6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
+        }
+        .approval-item:hover { background: #F9FAFB; }
+        .approval-item:last-child { border-bottom: none; }
+        .approval-item.pending-item { border-left: 4px solid #F59E0B; }
+        
+        .approval-left { display: flex; align-items: center; gap: 16px; flex: 1; }
+        .employee-avatar {
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 16px; color: white;
+        }
+        .avatar-blue { background: #3B5BDB; }
+        .avatar-green { background: #10B981; }
+        .avatar-orange { background: #F59E0B; }
+        .avatar-purple { background: #8B5CF6; }
+        .avatar-red { background: #EF4444; }
+        
+        .approval-info { flex: 1; }
+        .approval-info h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+        .approval-info .meta { font-size: 13px; color: #6B7280; margin-bottom: 8px; }
+        .approval-info .reason {
+            background: #F0F2F8;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #1A1D2E;
+            margin-top: 8px;
+        }
+        .approval-info .reason strong { color: #6B7280; font-size: 12px; }
+        
+        .approval-center { text-align: center; padding: 0 24px; }
+        .approval-type {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .type-annual { background: #DBEAFE; color: #1E40AF; }
+        .type-sick { background: #FEE2E2; color: #991B1B; }
+        .type-personal { background: #FEF3C7; color: #92400E; }
+        .type-maternity { background: #FCE7F3; color: #9D174D; }
+        .type-unpaid { background: #F3F4F6; color: #4B5563; }
+        
+        .approval-days { font-size: 24px; font-weight: 800; color: #1A1D2E; }
+        .approval-days span { font-size: 14px; color: #6B7280; font-weight: 500; }
+        .approval-dates { font-size: 13px; color: #6B7280; margin-top: 4px; }
+        
+        .approval-right { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+        .status-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .status-pending { background: #FEF3C7; color: #92400E; }
+        .status-approved { background: #D1FAE5; color: #065F46; }
+        .status-rejected { background: #FEE2E2; color: #991B1B; }
+        
+        .action-buttons { display: flex; gap: 8px; }
+        .btn-approve {
+            background: #10B981;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-approve:hover { background: #059669; transform: translateY(-2px); }
+        .btn-reject {
+            background: #EF4444;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-reject:hover { background: #DC2626; transform: translateY(-2px); }
+        .btn-view {
+            background: white;
+            border: 2px solid #E5E7EB;
+            color: #6B7280;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-view:hover { border-color: #3B5BDB; color: #3B5BDB; }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #9CA3AF;
+        }
+        .empty-state .icon { font-size: 64px; margin-bottom: 16px; }
+        
+        .btn-back {
+            background: white;
+            border: 2px solid #E5E7EB;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #F59E0B;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-back:hover { border-color: #F59E0B; }
+        
+        .rejection-modal textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">G</div>
+                <div class="sidebar-brand"><h3>GUY HRM</h3><span>Quản lý nhân sự</span></div>
+            </div>
+            <nav class="sidebar-nav">
+    <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span> Tổng quan</a>
+    <a href="employees.html" class="nav-item"><span class="nav-icon">👥</span> Nhân sự</a>
+    <a href="schedule.html" class="nav-item"><span class="nav-icon">📅</span> Lịch làm việc</a>
+    <a href="attendance.html" class="nav-item"><span class="nav-icon">⏱️</span> Chấm công</a>
+    <a href="leave-request.html" class="nav-item"><span class="nav-icon">📝</span> Nghỉ phép</a>
+    <a href="leave-approval.html" class="nav-item"><span class="nav-icon">✅</span> Duyệt đơn</a>
+    <div class="nav-section-title">Tài chính</div>
+    <a href="salary.html" class="nav-item"><span class="nav-icon">💰</span> Bảng lương</a>
+    <a href="report.html" class="nav-item"><span class="nav-icon">📈</span> Báo cáo</a>
+    <div class="nav-section-title">Hệ thống</div>
+    <a href="permission.html" class="nav-item"><span class="nav-icon">🔒</span> Phân quyền</a>
+    <a href="settings.html" class="nav-item"><span class="nav-icon">️⚙️</span> Cài đặt</a>
+</nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-user-avatar">LN</div>
+                    <div class="sidebar-user-info"><h4>Lê Đại Nghĩa</h4><span>Quản trị viên</span></div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <div class="page-header-left">
+                    <a href="dashboard.html" class="btn-back">← Quay lại</a>
+                </div>
+                <div class="page-header-actions">
+                    <a href="leave-request.html" class="btn btn-outline btn-sm">📝 Gửi đơn nghỉ phép</a>
+                </div>
+            </div>
+
+            <div class="page-content">
+                <!-- Header -->
+                <div class="approval-header">
+                    <h1>📋 Duyệt đơn nghỉ phép</h1>
+                    <p>Xem xét và phê duyệt các đơn xin nghỉ phép của nhân viên</p>
+                </div>
+
+                <!-- Stats -->
+                <div class="stats-grid-4" id="statsContainer">
+                    <div class="stat-box pending">
+                        <div class="value" id="statPending">0</div>
+                        <div class="label"> Chờ duyệt</div>
+                    </div>
+                    <div class="stat-box approved">
+                        <div class="value" id="statApproved">0</div>
+                        <div class="label">✅ Đã duyệt</div>
+                    </div>
+                    <div class="stat-box rejected">
+                        <div class="value" id="statRejected">0</div>
+                        <div class="label">❌ Từ chối</div>
+                    </div>
+                    <div class="stat-box total">
+                        <div class="value" id="statTotal">0</div>
+                        <div class="label">📊 Tổng đơn</div>
+                    </div>
+                </div>
+
+                <!-- Filter -->
+                <div class="filter-bar">
+                    <label style="font-weight:600">Trạng thái:</label>
+                    <select id="filterStatus" onchange="loadLeaves()">
+                        <option value="">Tất cả</option>
+                        <option value="pending">Chờ duyệt</option>
+                        <option value="approved">Đã duyệt</option>
+                        <option value="rejected">Từ chối</option>
+                    </select>
+                    
+                    <label style="font-weight:600">Phòng ban:</label>
+                    <select id="filterDept" onchange="loadLeaves()">
+                        <option value="">Tất cả</option>
+                        <option value="1">Bán hàng</option>
+                        <option value="2">Thu ngân</option>
+                        <option value="3">Kho vận</option>
+                        <option value="4">Quản lý & Nhân sự</option>
+                    </select>
+                    
+                    <input type="search" id="searchInput" placeholder=" Tìm theo tên nhân viên..." oninput="filterBySearch()">
+                </div>
+
+                <!-- Danh sách đơn -->
+                <div class="approval-card">
+                    <div class="card-header">
+                        <h3 id="listTitle"> Tất cả đơn nghỉ phép</h3>
+                    </div>
+                    <div id="leavesList">
+                        <div class="empty-state">
+                            <div class="icon">⏳</div>
+                            <h3>Đang tải...</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal từ chối -->
+    <div class="modal-overlay" id="rejectModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>❌ Từ chối đơn nghỉ phép</h3>
+                <button class="modal-close" onclick="closeModal('rejectModal')">✕</button>
+            </div>
+            <div class="modal-body rejection-modal">
+                <p style="margin-bottom:16px;color:#6B7280">Vui lòng nhập lý do từ chối:</p>
+                <textarea id="rejectionReason" placeholder="Nhập lý do từ chối đơn..."></textarea>
+                <input type="hidden" id="rejectLeaveId">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('rejectModal')">Hủy</button>
+                <button class="btn btn-danger" onclick="confirmReject()">❌ Xác nhận từ chối</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="js/app.js"></script>
+    <script>
+        let allLeaves = [];
+        const APPROVED_BY = 1; // ID admin hiện tại
+
+        async function loadLeaves() {
+            const status = document.getElementById('filterStatus').value;
+            const dept = document.getElementById('filterDept').value;
+            
+            let url = '../api/leaves.php?';
+            if (status) url += `status=${status}&`;
+            if (dept) url += `department_id=${dept}&`;
+            
+            try {
+                const res = await fetch(url);
+                const data = await res.json();
+                
+                if (data.leaves) {
+                    allLeaves = data.leaves;
+                    renderLeaves(allLeaves);
+                    updateStats(data.stats);
+                }
+            } catch(e) {
+                console.error('Lỗi:', e);
+                document.getElementById('leavesList').innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">❌</div>
+                        <h3>Lỗi kết nối</h3>
+                    </div>
+                `;
+            }
+        }
+
+        function renderLeaves(leaves) {
+            const container = document.getElementById('leavesList');
+            const colors = ['avatar-blue', 'avatar-green', 'avatar-orange', 'avatar-purple', 'avatar-red'];
+            
+            if (leaves.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">📭</div>
+                        <h3>Không có đơn nào</h3>
+                    </div>
+                `;
+                return;
+            }
+            
+            const typeMap = {
+                'annual': { icon: '🏖️', class: 'type-annual', name: 'Nghỉ phép năm' },
+                'sick': { icon: '🤒', class: 'type-sick', name: 'Ốm đau' },
+                'personal': { icon: '‍👩‍👧', class: 'type-personal', name: 'Việc cá nhân' },
+                'maternity': { icon: '🤰', class: 'type-maternity', name: 'Thai sản' },
+                'unpaid': { icon: '💼', class: 'type-unpaid', name: 'Không lương' }
+            };
+            
+            const statusMap = {
+                'pending': ['status-pending', 'Chờ duyệt'],
+                'approved': ['status-approved', 'Đã duyệt'],
+                'rejected': ['status-rejected', 'Bị từ chối']
+            };
+            
+            container.innerHTML = leaves.map((leave, i) => {
+                const type = typeMap[leave.leave_type] || { icon: '📝', class: '', name: 'Khác' };
+                const [statusClass, statusText] = statusMap[leave.status] || ['status-pending', '—'];
+                const initials = leave.full_name.split(' ').pop().substring(0,2).toUpperCase();
+                const color = colors[i % colors.length];
+                const startDate = new Date(leave.start_date).toLocaleDateString('vi-VN');
+                const endDate = new Date(leave.end_date).toLocaleDateString('vi-VN');
+                const days = Math.ceil((new Date(leave.end_date) - new Date(leave.start_date)) / (1000 * 60 * 60 * 24)) + 1;
+                const createdDate = new Date(leave.created_at).toLocaleString('vi-VN');
+                
+                return `
+                    <div class="approval-item ${leave.status === 'pending' ? 'pending-item' : ''}">
+                        <div class="approval-left">
+                            <div class="employee-avatar ${color}">${initials}</div>
+                            <div class="approval-info">
+                                <h4>${leave.full_name}</h4>
+                                <div class="meta">${leave.employee_code} • ${leave.department_name || 'Chưa phân ban'} • Gửi lúc: ${createdDate}</div>
+                                <div class="reason">
+                                    <strong>Lý do:</strong><br>
+                                    ${leave.reason}
+                                </div>
+                                ${leave.status === 'rejected' && leave.rejection_reason ? `
+                                    <div class="reason" style="background:#FEE2E2;margin-top:8px">
+                                        <strong style="color:#EF4444">Lý do từ chối:</strong><br>
+                                        ${leave.rejection_reason}
+                                    </div>
+                                ` : ''}
+                                ${leave.approved_by_name ? `
+                                    <div style="font-size:12px;color:#6B7280;margin-top:8px">
+                                        ${leave.status === 'approved' ? '✅' : '❌'} Duyệt bởi: <strong>${leave.approved_by_name}</strong>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                        
+                        <div class="approval-center">
+                            <div class="approval-type ${type.class}">${type.icon} ${type.name}</div>
+                            <div class="approval-days">${days} <span>ngày</span></div>
+                            <div class="approval-dates">${startDate} → ${endDate}</div>
+                        </div>
+                        
+                        <div class="approval-right">
+                            <span class="status-badge ${statusClass}">${statusText}</span>
+                            ${leave.status === 'pending' ? `
+                                <div class="action-buttons">
+                                    <button class="btn-approve" onclick="approveLeave(${leave.id})">✅ Duyệt</button>
+                                    <button class="btn-reject" onclick="openRejectModal(${leave.id})">❌ Từ chối</button>
+                                </div>
+                            ` : `
+                                <button class="btn-view" onclick="viewDetail(${leave.id})">👁️ Xem</button>
+                            `}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateStats(stats) {
+            if (!stats) return;
+            document.getElementById('statPending').textContent = stats.pending || 0;
+            document.getElementById('statApproved').textContent = stats.approved || 0;
+            document.getElementById('statRejected').textContent = stats.rejected || 0;
+            document.getElementById('statTotal').textContent = stats.total || 0;
+        }
+
+        function filterBySearch() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            if (!search) {
+                renderLeaves(allLeaves);
+                return;
+            }
+            const filtered = allLeaves.filter(l => l.full_name.toLowerCase().includes(search));
+            renderLeaves(filtered);
+        }
+
+        async function approveLeave(id) {
+            if (!confirm('Bạn có chắc muốn duyệt đơn này?')) return;
+            
+            try {
+                const res = await fetch('../api/leaves.php', {
+                    method: 'PUT',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ id, status: 'approved', approved_by: APPROVED_BY })
+                });
+                const result = await res.json();
+                
+                if (result.success) {
+                    showToast('Đã duyệt đơn thành công!', 'success');
+                    loadLeaves();
+                } else {
+                    showToast(result.error || 'Lỗi', 'error');
+                }
+            } catch(e) {
+                showToast('Lỗi kết nối', 'error');
+            }
+        }
+
+        function openRejectModal(id) {
+            document.getElementById('rejectLeaveId').value = id;
+            document.getElementById('rejectionReason').value = '';
+            openModal('rejectModal');
+        }
+
+        async function confirmReject() {
+            const id = document.getElementById('rejectLeaveId').value;
+            const reason = document.getElementById('rejectionReason').value;
+            
+            if (!reason) {
+                showToast('Vui lòng nhập lý do từ chối', 'warning');
+                return;
+            }
+            
+            try {
+                const res = await fetch('../api/leaves.php', {
+                    method: 'PUT',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ id, status: 'rejected', approved_by: APPROVED_BY, rejection_reason: reason })
+                });
+                const result = await res.json();
+                
+                if (result.success) {
+                    showToast('Đã từ chối đơn', 'success');
+                    closeModal('rejectModal');
+                    loadLeaves();
+                } else {
+                    showToast(result.error || 'Lỗi', 'error');
+                }
+            } catch(e) {
+                showToast('Lỗi kết nối', 'error');
+            }
+        }
+
+        function viewDetail(id) {
+            const leave = allLeaves.find(l => l.id == id);
+            if (!leave) return;
+            showToast(`Xem chi tiết đơn #${id}`, 'info');
+        }
+
+        loadLeaves();
+    </script>
+</body>
+</html>

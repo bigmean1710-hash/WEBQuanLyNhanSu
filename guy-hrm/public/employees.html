@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUY HRM - Nhân sự</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">G</div>
+                <div class="sidebar-brand"><h3>GUY HRM</h3><span>Quản lý nhân sự</span></div>
+            </div>
+            <nav class="sidebar-nav">
+    <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span> Tổng quan</a>
+    <a href="employees.html" class="nav-item"><span class="nav-icon">👥</span> Nhân sự</a>
+    <a href="schedule.html" class="nav-item"><span class="nav-icon">📅</span> Lịch làm việc</a>
+    <a href="attendance.html" class="nav-item"><span class="nav-icon">⏱️</span> Chấm công</a>
+    <a href="leave-request.html" class="nav-item"><span class="nav-icon">📝</span> Nghỉ phép</a>
+    <a href="leave-approval.html" class="nav-item"><span class="nav-icon">✅</span> Duyệt đơn</a>
+    <div class="nav-section-title">Tài chính</div>
+    <a href="salary.html" class="nav-item"><span class="nav-icon">💰</span> Bảng lương</a>
+    <a href="report.html" class="nav-item"><span class="nav-icon">📈</span> Báo cáo</a>
+    <div class="nav-section-title">Hệ thống</div>
+    <a href="permission.html" class="nav-item"><span class="nav-icon">🔒</span> Phân quyền</a>
+    <a href="settings.html" class="nav-item"><span class="nav-icon">️⚙️</span> Cài đặt</a>
+</nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-user-avatar">LN</div>
+                    <div class="sidebar-user-info"><h4>Lê Đại Nghĩa</h4><span>Quản trị viên</span></div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <a href="dashboard.html">GUY HRM</a> / <span class="current">Nhân sự</span>
+            </div>
+
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="top-bar-notification" onclick="showToast('3 thông báo mới','info')">
+                    🔔<span class="dot"></span>
+                </div>
+                <div class="top-bar-user">
+                    <div class="top-bar-user-avatar">LN</div>
+                    <div class="top-bar-user-info">
+                        <h4>Lê Đại Nghĩa</h4>
+                        <span>Quản trị viên</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-header">
+                <div class="page-header-left">
+                    <h1><span class="header-icon"></span> Quản lý nhân viên</h1>
+                    <p>Quản lý hồ sơ, hợp đồng, phòng ban và trạng thái làm việc của toàn bộ nhân sự.</p>
+                </div>
+                <div class="page-header-actions">
+                    <button class="btn btn-outline btn-sm" onclick="showToast('Đang xuất Excel...','info')">↓ Xuất Excel</button>
+                    <button class="btn btn-primary btn-sm" onclick="openModal('addEmployeeModal')">＋ Thêm nhân viên</button>
+                </div>
+            </div>
+
+            <div class="page-content">
+                <!-- Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-icon blue" style="margin-bottom:12px">👥</div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+                            <div class="stat-card-value" style="font-size:32px" id="empTotal">56</div>
+                            <span class="stat-card-change positive">+3 tháng này</span>
+                        </div>
+                        <div class="stat-card-label">Tổng nhân viên</div>
+                        <div style="font-size:12px;color:var(--text-muted);margin-top:4px">Toàn bộ nhân sự trong hệ thống</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-icon green" style="margin-bottom:12px">✓</div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+                            <div class="stat-card-value" style="font-size:32px" id="empWorking">48</div>
+                            <span class="stat-card-change positive">85.7%</span>
+                        </div>
+                        <div class="stat-card-label">Đang làm việc</div>
+                        <div style="font-size:12px;color:var(--text-muted);margin-top:4px">Nhân sự đang hoạt động</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-icon orange" style="margin-bottom:12px">🕐</div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+                            <div class="stat-card-value" style="font-size:32px" id="empProbation">8</div>
+                            <span class="stat-card-change">14.3%</span>
+                        </div>
+                        <div class="stat-card-label">Thử việc</div>
+                        <div style="font-size:12px;color:var(--text-muted);margin-top:4px">Đang trong giai đoạn thử việc</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-icon purple" style="margin-bottom:12px">🏖️</div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+                            <div class="stat-card-value" style="font-size:32px" id="empLeave">4</div>
+                            <span class="text-muted" style="font-size:12px">Hôm nay</span>
+                        </div>
+                        <div class="stat-card-label">Nghỉ phép</div>
+                        <div style="font-size:12px;color:var(--text-muted);margin-top:4px">Đơn nghỉ đã được phê duyệt</div>
+                    </div>
+                </div>
+
+                <!-- New Employees & Department Structure -->
+                <div class="content-grid content-grid-2">
+                    <!-- New Employees -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Nhân viên mới</h3>
+                            <a href="#" style="color:var(--primary);font-size:14px;font-weight:600" onclick="showToast('Xem tất cả nhân viên mới','info')">Xem tất cả</a>
+                        </div>
+                        <div class="card-body">
+                            <div style="font-size:13px;color:var(--text-muted);margin-bottom:16px">Gia nhập trong 30 ngày gần nhất</div>
+                            <div id="newEmployeesList">
+                                <div class="new-employee-item">
+                                    <div class="new-employee-avatar" style="background:var(--info-bg);color:var(--info)">MQ</div>
+                                    <div class="new-employee-info">
+                                        <h4>Nguyễn Minh Quân</h4>
+                                        <span>Nhân viên bán hàng</span>
+                                    </div>
+                                    <div class="new-employee-date">02/10</div>
+                                </div>
+                                <div class="new-employee-item">
+                                    <div class="new-employee-avatar" style="background:var(--warning-bg);color:var(--warning)">HL</div>
+                                    <div class="new-employee-info">
+                                        <h4>Hoàng Phương Linh</h4>
+                                        <span>Thu ngân</span>
+                                    </div>
+                                    <div class="new-employee-date">29/09</div>
+                                </div>
+                                <div class="new-employee-item">
+                                    <div class="new-employee-avatar" style="background:var(--success-bg);color:var(--success)">TH</div>
+                                    <div class="new-employee-info">
+                                        <h4>Trần Gia Huy</h4>
+                                        <span>Kho vận</span>
+                                    </div>
+                                    <div class="new-employee-date">25/09</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Department Structure -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Cơ cấu phòng ban</h3>
+                        </div>
+                        <div class="card-body">
+                            <div style="font-size:13px;color:var(--text-muted);margin-bottom:20px">Phân bố nhân sự hiện tại</div>
+                            <div id="departmentBars">
+                                <div class="department-bar-item">
+                                    <div class="department-bar-header">
+                                        <span class="name">Bán hàng</span>
+                                        <span class="count">24</span>
+                                    </div>
+                                    <div class="department-bar-track">
+                                        <div class="department-bar-fill" style="width:48%"></div>
+                                    </div>
+                                </div>
+                                <div class="department-bar-item">
+                                    <div class="department-bar-header">
+                                        <span class="name">Thu ngân</span>
+                                        <span class="count">12</span>
+                                    </div>
+                                    <div class="department-bar-track">
+                                        <div class="department-bar-fill" style="width:24%"></div>
+                                    </div>
+                                </div>
+                                <div class="department-bar-item">
+                                    <div class="department-bar-header">
+                                        <span class="name">Kho vận</span>
+                                        <span class="count">10</span>
+                                    </div>
+                                    <div class="department-bar-track">
+                                        <div class="department-bar-fill" style="width:20%"></div>
+                                    </div>
+                                </div>
+                                <div class="department-bar-item">
+                                    <div class="department-bar-header">
+                                        <span class="name">Quản lý & Nhân sự</span>
+                                        <span class="count">10</span>
+                                    </div>
+                                    <div class="department-bar-track">
+                                        <div class="department-bar-fill" style="width:20%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Search & Filter -->
+                <div class="filter-bar">
+                    <input type="search" placeholder="🔍 Tìm theo tên, mã nhân viên, email..." id="empSearch" style="flex:2;min-width:250px">
+                    <select id="empFilterDept">
+                        <option value="">Tất cả phòng ban</option>
+                        <option value="1">Bán hàng</option>
+                        <option value="2">Thu ngân</option>
+                        <option value="3">Kho vận</option>
+                        <option value="4">Quản lý & Nhân sự</option>
+                    </select>
+                    <select id="empFilterStatus">
+                        <option value="">Tất cả trạng thái</option>
+                        <option value="working">Đang làm việc</option>
+                        <option value="probation">Thử việc</option>
+                        <option value="leave">Nghỉ phép</option>
+                        <option value="resigned">Đã nghỉ</option>
+                    </select>
+                    <button class="btn btn-outline btn-sm" onclick="searchEmployees()">Bộ lọc</button>
+                    <button class="btn btn-outline btn-sm" onclick="resetFilters()" style="margin-left:auto"></button>
+                    <button class="btn btn-outline btn-sm">☰</button>
+                </div>
+
+                <!-- Employee List -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Danh sách nhân viên</h3>
+                        <div style="display:flex;gap:8px">
+                            <button class="btn btn-outline btn-sm" onclick="showToast('Import dữ liệu','info')">Import</button>
+                            <button class="btn btn-outline btn-sm" onclick="showToast('Export dữ liệu','info')">Export</button>
+                        </div>
+                    </div>
+                    <div class="card-body no-padding">
+                        <div class="table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th><input type="checkbox"></th>
+                                        <th>Mã NV</th>
+                                        <th>Họ tên</th>
+                                        <th>Phòng ban</th>
+                                        <th>Vị trí</th>
+                                        <th>Ngày vào</th>
+                                        <th>Hợp đồng</th>
+                                        <th>Lương cơ bản</th>
+                                        <th>Trạng thái</th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="employeeTableBody">
+                                    <!-- Rendered by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Employee Modal -->
+    <div class="modal-overlay" id="addEmployeeModal">
+        <div class="modal" style="max-width:640px">
+            <div class="modal-header">
+                <h3>Thêm nhân viên mới</h3>
+                <button class="modal-close" onclick="closeModal('addEmployeeModal')">✕</button>
+            </div>
+            <div class="modal-body">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                    <div class="form-group">
+                        <label>Mã nhân viên *</label>
+                        <input type="text" class="form-control" id="newEmpCode" placeholder="VD: NV006">
+                    </div>
+                    <div class="form-group">
+                        <label>Họ tên *</label>
+                        <input type="text" class="form-control" id="newEmpName" placeholder="Nhập họ tên">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" id="newEmpEmail" placeholder="email@guy.vn">
+                    </div>
+                    <div class="form-group">
+                        <label>Số điện thoại</label>
+                        <input type="tel" class="form-control" id="newEmpPhone" placeholder="0901234567">
+                    </div>
+                    <div class="form-group">
+                        <label>Giới tính</label>
+                        <select class="form-control" id="newEmpGender">
+                            <option value="male">Nam</option>
+                            <option value="female">Nữ</option>
+                            <option value="other">Khác</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Ngày sinh</label>
+                        <input type="date" class="form-control" id="newEmpDob">
+                    </div>
+                    <div class="form-group">
+                        <label>Phòng ban *</label>
+                        <select class="form-control" id="newEmpDept">
+                            <option value="1">Bán hàng</option>
+                            <option value="2">Thu ngân</option>
+                            <option value="3">Kho vận</option>
+                            <option value="4">Quản lý & Nhân sự</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Vị trí *</label>
+                        <input type="text" class="form-control" id="newEmpPosition" placeholder="VD: Nhân viên bán hàng">
+                    </div>
+                    <div class="form-group">
+                        <label>Ngày vào làm *</label>
+                        <input type="date" class="form-control" id="newEmpHireDate" value="2026-10-19">
+                    </div>
+                    <div class="form-group">
+                        <label>Loại hợp đồng</label>
+                        <select class="form-control" id="newEmpContract">
+                            <option value="fulltime">Chính thức</option>
+                            <option value="probation">Thử việc</option>
+                            <option value="parttime">Bán thời gian</option>
+                            <option value="intern">Thực tập</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Lương cơ bản *</label>
+                        <input type="number" class="form-control" id="newEmpSalary" placeholder="8000000">
+                    </div>
+                    <div class="form-group">
+                        <label>Trạng thái</label>
+                        <select class="form-control" id="newEmpStatus">
+                            <option value="working">Đang làm việc</option>
+                            <option value="probation">Thử việc</option>
+                            <option value="leave">Nghỉ phép</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top:8px">
+                    <label>Địa chỉ</label>
+                    <textarea class="form-control" id="newEmpAddress" rows="2" placeholder="Nhập địa chỉ"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('addEmployeeModal')">Hủy</button>
+                <button class="btn btn-primary" style="width:auto" onclick="addEmployee()">＋ Thêm nhân viên</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="js/app.js"></script>
+    <script>
+        let allEmployees = [];
+
+        async function loadEmployees() {
+            try {
+                const res = await fetch('../api/employees.php');
+                const data = await res.json();
+                allEmployees = data.employees || [];
+                if (allEmployees.length > 0) {
+                    renderEmployeeTable(allEmployees);
+                    updateStats(data.stats);
+                } else {
+                    loadStaticEmployees();
+                }
+            } catch(e) {
+                console.log('Using static employee data');
+                loadStaticEmployees();
+            }
+        }
+
+        function loadStaticEmployees() {
+            allEmployees = [
+                {id:1, employee_code:'NV001', full_name:'Nguyễn Văn An', email:'an.nv@guy.vn', department_name:'Bán hàng', position:'Bán hàng', hire_date:'2024-01-15', contract_type:'fulltime', status:'working', base_salary:8500000},
+                {id:2, employee_code:'NV002', full_name:'Trần Thị Bình', email:'binh.tt@guy.vn', department_name:'Thu ngân', position:'Thu ngân', hire_date:'2024-02-01', contract_type:'fulltime', status:'working', base_salary:9000000},
+                {id:3, employee_code:'NV003', full_name:'Nguyễn Minh Quân', email:'quan.nm@guy.vn', department_name:'Bán hàng', position:'Nhân viên bán hàng', hire_date:'2026-10-02', contract_type:'probation', status:'probation', base_salary:7000000},
+                {id:4, employee_code:'NV004', full_name:'Hoàng Phương Linh', email:'linh.hp@guy.vn', department_name:'Thu ngân', position:'Thu ngân', hire_date:'2026-09-29', contract_type:'fulltime', status:'working', base_salary:8500000},
+                {id:5, employee_code:'NV005', full_name:'Trần Gia Huy', email:'huy.tg@guy.vn', department_name:'Kho vận', position:'Kho vận', hire_date:'2026-09-25', contract_type:'fulltime', status:'working', base_salary:8000000},
+            ];
+            renderEmployeeTable(allEmployees);
+        }
+
+        function renderEmployeeTable(employees) {
+            const tbody = document.getElementById('employeeTableBody');
+            const colors = ['blue','green','orange','purple','red'];
+            tbody.innerHTML = employees.map((emp, i) => {
+                const initials = emp.full_name.split(' ').pop().substring(0,2).toUpperCase();
+                const color = colors[i % colors.length];
+                const statusMap = {
+                    'working': ['badge-success', 'Đang làm việc'],
+                    'probation': ['badge-warning', 'Thử việc'],
+                    'leave': ['badge-info', 'Nghỉ phép'],
+                    'resigned': ['badge-danger', 'Đã nghỉ']
+                };
+                const [badgeClass, badgeText] = statusMap[emp.status] || ['badge-info', emp.status];
+                const contractMap = {
+                    'fulltime': 'Chính thức',
+                    'probation': 'Thử việc',
+                    'parttime': 'Bán TG',
+                    'intern': 'Thực tập'
+                };
+                const salary = new Intl.NumberFormat('vi-VN').format(emp.base_salary);
+                const hireDate = emp.hire_date ? new Date(emp.hire_date).toLocaleDateString('vi-VN') : '-';
+                return `<tr>
+                    <td><input type="checkbox"></td>
+                    <td><strong>${emp.employee_code}</strong></td>
+                    <td>
+                        <div class="employee-cell">
+                            <div class="employee-avatar ${color}">${initials}</div>
+                            <div class="employee-info">
+                                <h4>${emp.full_name}</h4>
+                                <span>${emp.email || '-'}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>${emp.department_name || '-'}</td>
+                    <td>${emp.position}</td>
+                    <td>${hireDate}</td>
+                    <td><span class="badge badge-info">${contractMap[emp.contract_type] || emp.contract_type}</span></td>
+                    <td><strong>${salary}₫</strong></td>
+                    <td><span class="badge ${badgeClass}">${badgeText}</span></td>
+                    <td>
+                        <button class="btn btn-outline btn-sm" onclick="editEmployee(${emp.id})" style="padding:6px 10px;font-size:12px">✏️</button>
+                        <button class="btn btn-outline btn-sm" onclick="deleteEmployee(${emp.id})" style="padding:6px 10px;font-size:12px;color:var(--danger)">🗑️</button>
+                    </td>
+                </tr>`;
+            }).join('');
+        }
+
+        function updateStats(stats) {
+            if (stats) {
+                document.getElementById('empTotal').textContent = stats.total || 56;
+                document.getElementById('empWorking').textContent = stats.working || 48;
+                document.getElementById('empProbation').textContent = stats.probation || 8;
+                document.getElementById('empLeave').textContent = stats.on_leave || 4;
+            }
+        }
+
+        async function addEmployee() {
+            const data = {
+                employee_code: document.getElementById('newEmpCode').value,
+                full_name: document.getElementById('newEmpName').value,
+                email: document.getElementById('newEmpEmail').value,
+                phone: document.getElementById('newEmpPhone').value,
+                gender: document.getElementById('newEmpGender').value,
+                date_of_birth: document.getElementById('newEmpDob').value,
+                department_id: document.getElementById('newEmpDept').value,
+                position: document.getElementById('newEmpPosition').value,
+                hire_date: document.getElementById('newEmpHireDate').value,
+                contract_type: document.getElementById('newEmpContract').value,
+                base_salary: document.getElementById('newEmpSalary').value,
+                status: document.getElementById('newEmpStatus').value,
+                address: document.getElementById('newEmpAddress').value,
+            };
+
+            if (!data.employee_code || !data.full_name || !data.position || !data.base_salary) {
+                showToast('Vui lòng điền đầy đủ thông tin bắt buộc', 'warning');
+                return;
+            }
+
+            try {
+                const res = await fetch('../api/employees.php', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(data)
+                });
+                const result = await res.json();
+                if (result.success) {
+                    showToast('Thêm nhân viên thành công!', 'success');
+                    closeModal('addEmployeeModal');
+                    loadEmployees();
+                } else {
+                    showToast(result.error || 'Có lỗi xảy ra', 'error');
+                }
+            } catch(e) {
+                // Fallback: add to local array
+                data.id = Date.now();
+                data.department_name = document.getElementById('newEmpDept').options[document.getElementById('newEmpDept').selectedIndex].text;
+                allEmployees.unshift(data);
+                renderEmployeeTable(allEmployees);
+                showToast('Thêm nhân viên thành công! (local)', 'success');
+                closeModal('addEmployeeModal');
+            }
+        }
+
+        function editEmployee(id) {
+            showToast('Mở form chỉnh sửa NV #' + id, 'info');
+        }
+
+        async function deleteEmployee(id) {
+            if (!confirm('Bạn có chắc muốn xóa nhân viên này?')) return;
+            try {
+                await fetch(`../api/employees.php?id=${id}`, {method: 'DELETE'});
+                showToast('Đã xóa nhân viên', 'success');
+                loadEmployees();
+            } catch(e) {
+                allEmployees = allEmployees.filter(e => e.id !== id);
+                renderEmployeeTable(allEmployees);
+                showToast('Đã xóa nhân viên (local)', 'success');
+ “Đã xóa nhân viên (local)”, “success”);
+            }
+        }
+
+        function searchEmployees() {
+            const search = document.getElementById('empSearch').value.toLowerCase();
+            const dept = document.getElementById('empFilterDept').value;
+            const status = document.getElementById('empFilterStatus').value;
+
+            let filtered = allEmployees.filter(emp => {
+                const matchSearch = !search || emp.full_name.toLowerCase().includes(search) || 
+                                   emp.employee_code.toLowerCase().includes(search) ||
+                                   (emp.email && emp.email.toLowerCase().includes(search));
+                const matchDept = !dept || emp.department_id == dept;
+                const matchStatus = !status || emp.status === status;
+                return matchSearch && matchDept && matchStatus;
+            });
+            renderEmployeeTable(filtered);
+            showToast(`Tìm thấy ${filtered.length} nhân viên`, 'info');
+        }
+
+        function resetFilters() {
+            document.getElementById('empSearch').value = '';
+            document.getElementById('empFilterDept').value = '';
+            document.getElementById('empFilterStatus').value = '';
+            renderEmployeeTable(allEmployees);
+        }
+
+        document.getElementById('empSearch').addEventListener('input', searchEmployees);
+        loadEmployees();
+    </script>
+</body>
+</html>

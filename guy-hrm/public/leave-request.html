@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUY HRM - Gửi đơn nghỉ phép</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .leave-header {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+            padding: 32px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+        }
+        .leave-header h1 { font-size: 28px; margin-bottom: 8px; }
+        .leave-header p { opacity: 0.9; }
+        
+        .stats-grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .stat-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #F3F4F6;
+            text-align: center;
+        }
+        .stat-box .value { font-size: 28px; font-weight: 800; color: #1A1D2E; margin-bottom: 4px; }
+        .stat-box .label { font-size: 13px; color: #6B7280; }
+        .stat-box.pending .value { color: #F59E0B; }
+        .stat-box.approved .value { color: #10B981; }
+        .stat-box.rejected .value { color: #EF4444; }
+        .stat-box.total .value { color: #3B5BDB; }
+        
+        .form-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid #F3F4F6;
+            margin-bottom: 24px;
+        }
+        .form-card h3 { font-size: 20px; margin-bottom: 24px; display: flex; align-items: center; gap: 8px; }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .form-group { margin-bottom: 0; }
+        .form-group.full-width { grid-column: 1 / -1; }
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1A1D2E;
+            margin-bottom: 8px;
+        }
+        .form-group label .required { color: #EF4444; }
+        .form-control {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        .form-control:focus {
+            border-color: #10B981;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+        textarea.form-control { resize: vertical; min-height: 100px; }
+        
+        .leave-type-options {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+        }
+        .leave-type-option {
+            position: relative;
+        }
+        .leave-type-option input { display: none; }
+        .leave-type-option label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px 12px;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: center;
+        }
+        .leave-type-option label .icon { font-size: 28px; margin-bottom: 8px; }
+        .leave-type-option label .name { font-size: 13px; font-weight: 600; color: #6B7280; }
+        .leave-type-option input:checked + label {
+            border-color: #10B981;
+            background: #ECFDF5;
+        }
+        .leave-type-option input:checked + label .name { color: #10B981; }
+        
+        .date-range-info {
+            background: #F0F2F8;
+            padding: 16px;
+            border-radius: 12px;
+            margin-top: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .date-range-info .days { font-size: 24px; font-weight: 800; color: #10B981; }
+        .date-range-info .text { font-size: 14px; color: #6B7280; }
+        
+        .btn-submit {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+            padding: 14px 32px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+        
+        .history-card {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #F3F4F6;
+            overflow: hidden;
+        }
+        .history-card .card-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #F3F4F6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .history-card .card-header h3 { font-size: 18px; display: flex; align-items: center; gap: 8px; }
+        
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+        }
+        .filter-tab {
+            padding: 8px 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .filter-tab.active {
+            border-color: #10B981;
+            background: #ECFDF5;
+            color: #10B981;
+        }
+        
+        .leave-item {
+            padding: 20px 24px;
+            border-bottom: 1px solid #F3F4F6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
+        }
+        .leave-item:hover { background: #F9FAFB; }
+        .leave-item:last-child { border-bottom: none; }
+        
+        .leave-item-left { display: flex; align-items: center; gap: 16px; }
+        .leave-icon {
+            width: 48px; height: 48px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px;
+        }
+        .leave-icon.annual { background: #DBEAFE; }
+        .leave-icon.sick { background: #FEE2E2; }
+        .leave-icon.personal { background: #FEF3C7; }
+        .leave-icon.maternity { background: #FCE7F3; }
+        .leave-icon.unpaid { background: #F3F4F6; }
+        
+        .leave-info h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+        .leave-info p { font-size: 13px; color: #6B7280; }
+        .leave-info .date { font-weight: 600; color: #1A1D2E; }
+        
+        .leave-item-right { text-align: right; }
+        .leave-days { font-size: 18px; font-weight: 800; color: #1A1D2E; margin-bottom: 4px; }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .status-pending { background: #FEF3C7; color: #92400E; }
+        .status-approved { background: #D1FAE5; color: #065F46; }
+        .status-rejected { background: #FEE2E2; color: #991B1B; }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #9CA3AF;
+        }
+        .empty-state .icon { font-size: 64px; margin-bottom: 16px; }
+        
+        .btn-back {
+            background: white;
+            border: 2px solid #E5E7EB;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #10B981;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-back:hover { border-color: #10B981; }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">G</div>
+                <div class="sidebar-brand"><h3>GUY HRM</h3><span>Quản lý nhân sự</span></div>
+            </div>
+            <nav class="sidebar-nav">
+    <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span> Tổng quan</a>
+    <a href="employees.html" class="nav-item"><span class="nav-icon">👥</span> Nhân sự</a>
+    <a href="schedule.html" class="nav-item"><span class="nav-icon">📅</span> Lịch làm việc</a>
+    <a href="attendance.html" class="nav-item"><span class="nav-icon">⏱️</span> Chấm công</a>
+    <a href="leave-request.html" class="nav-item"><span class="nav-icon">📝</span> Nghỉ phép</a>
+    <a href="leave-approval.html" class="nav-item"><span class="nav-icon">✅</span> Duyệt đơn</a>
+    <div class="nav-section-title">Tài chính</div>
+    <a href="salary.html" class="nav-item"><span class="nav-icon">💰</span> Bảng lương</a>
+    <a href="report.html" class="nav-item"><span class="nav-icon">📈</span> Báo cáo</a>
+    <div class="nav-section-title">Hệ thống</div>
+    <a href="permission.html" class="nav-item"><span class="nav-icon">🔒</span> Phân quyền</a>
+    <a href="settings.html" class="nav-item"><span class="nav-icon">️⚙️</span> Cài đặt</a>
+</nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-user-avatar">LN</div>
+                    <div class="sidebar-user-info"><h4>Lê Đại Nghĩa</h4><span>Quản trị viên</span></div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <div class="page-header-left">
+                    <a href="dashboard.html" class="btn-back">← Quay lại</a>
+                </div>
+                <div class="page-header-actions">
+                    <a href="leave-approval.html" class="btn btn-outline btn-sm"> Xem đơn cần duyệt (Admin)</a>
+                </div>
+            </div>
+
+            <div class="page-content">
+                <!-- Header -->
+                <div class="leave-header">
+                    <h1>📝 Gửi đơn xin nghỉ phép</h1>
+                    <p>Tạo đơn nghỉ phép và theo dõi trạng thái duyệt đơn</p>
+                </div>
+
+                <!-- Stats -->
+                <div class="stats-grid-4" id="statsContainer">
+                    <div class="stat-box total">
+                        <div class="value" id="statTotal">0</div>
+                        <div class="label">Tổng đơn đã gửi</div>
+                    </div>
+                    <div class="stat-box pending">
+                        <div class="value" id="statPending">0</div>
+                        <div class="label">Đang chờ duyệt</div>
+                    </div>
+                    <div class="stat-box approved">
+                        <div class="value" id="statApproved">0</div>
+                        <div class="label">Đã được duyệt</div>
+                    </div>
+                    <div class="stat-box rejected">
+                        <div class="value" id="statRejected">0</div>
+                        <div class="label">Bị từ chối</div>
+                    </div>
+                </div>
+
+                <!-- Form tạo đơn -->
+                <div class="form-card">
+                    <h3>✍️ Tạo đơn nghỉ phép mới</h3>
+                    <form id="leaveForm">
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label>Loại nghỉ phép <span class="required">*</span></label>
+                                <div class="leave-type-options">
+                                    <div class="leave-type-option">
+                                        <input type="radio" name="leave_type" id="type_annual" value="annual" checked>
+                                        <label for="type_annual">
+                                            <span class="icon">🏖️</span>
+                                            <span class="name">Nghỉ phép năm</span>
+                                        </label>
+                                    </div>
+                                    <div class="leave-type-option">
+                                        <input type="radio" name="leave_type" id="type_sick" value="sick">
+                                        <label for="type_sick">
+                                            <span class="icon">🤒</span>
+                                            <span class="name">Ốm đau</span>
+                                        </label>
+                                    </div>
+                                    <div class="leave-type-option">
+                                        <input type="radio" name="leave_type" id="type_personal" value="personal">
+                                        <label for="type_personal">
+                                            <span class="icon">👨‍👩‍👧</span>
+                                            <span class="name">Việc cá nhân</span>
+                                        </label>
+                                    </div>
+                                    <div class="leave-type-option">
+                                        <input type="radio" name="leave_type" id="type_maternity" value="maternity">
+                                        <label for="type_maternity">
+                                            <span class="icon">🤰</span>
+                                            <span class="name">Thai sản</span>
+                                        </label>
+                                    </div>
+                                    <div class="leave-type-option">
+                                        <input type="radio" name="leave_type" id="type_unpaid" value="unpaid">
+                                        <label for="type_unpaid">
+                                            <span class="icon">💼</span>
+                                            <span class="name">Không lương</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Ngày bắt đầu <span class="required">*</span></label>
+                                <input type="date" class="form-control" id="start_date" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Ngày kết thúc <span class="required">*</span></label>
+                                <input type="date" class="form-control" id="end_date" required>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label>Lý do nghỉ <span class="required">*</span></label>
+                                <textarea class="form-control" id="reason" placeholder="Nhập lý do nghỉ phép chi tiết..." required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="date-range-info">
+                            <div>
+                                <div class="text">Số ngày nghỉ</div>
+                                <div class="days" id="daysCount">0 ngày</div>
+                            </div>
+                            <button type="submit" class="btn-submit">📤 Gửi đơn xin nghỉ phép</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Lịch sử đơn -->
+                <div class="history-card">
+                    <div class="card-header">
+                        <h3>📋 Lịch sử đơn nghỉ phép</h3>
+                        <div class="filter-tabs">
+                            <button class="filter-tab active" onclick="filterLeaves('all')">Tất cả</button>
+                            <button class="filter-tab" onclick="filterLeaves('pending')">Chờ duyệt</button>
+                            <button class="filter-tab" onclick="filterLeaves('approved')">Đã duyệt</button>
+                            <button class="filter-tab" onclick="filterLeaves('rejected')">Từ chối</button>
+                        </div>
+                    </div>
+                    <div id="leavesList">
+                        <div class="empty-state">
+                            <div class="icon">⏳</div>
+                            <h3>Đang tải...</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="js/app.js"></script>
+    <script>
+        const EMPLOYEE_ID = 1; // ID nhân viên hiện tại (sẽ lấy từ session sau)
+        let allLeaves = [];
+        let currentFilter = 'all';
+
+        // Tính số ngày nghỉ
+        function calculateDays() {
+            const start = document.getElementById('start_date').value;
+            const end = document.getElementById('end_date').value;
+            
+            if (start && end) {
+                const startDate = new Date(start);
+                const endDate = new Date(end);
+                const diffTime = Math.abs(endDate - startDate);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+                document.getElementById('daysCount').textContent = `${diffDays} ngày`;
+            } else {
+                document.getElementById('daysCount').textContent = '0 ngày';
+            }
+        }
+
+        document.getElementById('start_date').addEventListener('change', calculateDays);
+        document.getElementById('end_date').addEventListener('change', calculateDays);
+
+        // Load danh sách đơn
+        async function loadLeaves() {
+            try {
+                const res = await fetch(`../api/leaves.php?employee_id=${EMPLOYEE_ID}`);
+                const data = await res.json();
+                
+                if (data.leaves) {
+                    allLeaves = data.leaves;
+                    renderLeaves(allLeaves);
+                    updateStats(data.stats);
+                }
+            } catch(e) {
+                console.error('Lỗi:', e);
+                document.getElementById('leavesList').innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">❌</div>
+                        <h3>Lỗi kết nối</h3>
+                    </div>
+                `;
+            }
+        }
+
+        // Render danh sách đơn
+        function renderLeaves(leaves) {
+            const container = document.getElementById('leavesList');
+            
+            if (leaves.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">📭</div>
+                        <h3>Chưa có đơn nghỉ phép nào</h3>
+                        <p>Hãy tạo đơn đầu tiên ở form trên</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const typeMap = {
+                'annual': { icon: '🏖️', class: 'annual', name: 'Nghỉ phép năm' },
+                'sick': { icon: '🤒', class: 'sick', name: 'Ốm đau' },
+                'personal': { icon: '👨‍👩👧', class: 'personal', name: 'Việc cá nhân' },
+                'maternity': { icon: '🤰', class: 'maternity', name: 'Thai sản' },
+                'unpaid': { icon: '💼', class: 'unpaid', name: 'Không lương' }
+            };
+            
+            const statusMap = {
+                'pending': ['status-pending', 'Chờ duyệt'],
+                'approved': ['status-approved', 'Đã duyệt'],
+                'rejected': ['status-rejected', 'Bị từ chối']
+            };
+            
+            container.innerHTML = leaves.map(leave => {
+                const type = typeMap[leave.leave_type] || { icon: '📝', class: '', name: 'Khác' };
+                const [statusClass, statusText] = statusMap[leave.status] || ['status-pending', '—'];
+                const startDate = new Date(leave.start_date).toLocaleDateString('vi-VN');
+                const endDate = new Date(leave.end_date).toLocaleDateString('vi-VN');
+                const days = Math.ceil((new Date(leave.end_date) - new Date(leave.start_date)) / (1000 * 60 * 60 * 24)) + 1;
+                
+                return `
+                    <div class="leave-item">
+                        <div class="leave-item-left">
+                            <div class="leave-icon ${type.class}">${type.icon}</div>
+                            <div class="leave-info">
+                                <h4>${type.name}</h4>
+                                <p class="date">${startDate} → ${endDate}</p>
+                                <p>${leave.reason}</p>
+                                ${leave.status === 'rejected' && leave.rejection_reason ? `<p style="color:#EF4444;margin-top:4px"><strong>Lý do từ chối:</strong> ${leave.rejection_reason}</p>` : ''}
+                            </div>
+                        </div>
+                        <div class="leave-item-right">
+                            <div class="leave-days">${days} ngày</div>
+                            <span class="status-badge ${statusClass}">${statusText}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Cập nhật thống kê
+        function updateStats(stats) {
+            if (!stats) return;
+            document.getElementById('statTotal').textContent = stats.total || 0;
+            document.getElementById('statPending').textContent = stats.pending || 0;
+            document.getElementById('statApproved').textContent = stats.approved || 0;
+            document.getElementById('statRejected').textContent = stats.rejected || 0;
+        }
+
+        // Lọc đơn
+        function filterLeaves(status) {
+            currentFilter = status;
+            
+            // Update active tab
+            document.querySelectorAll('.filter-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if (status === 'all') {
+                renderLeaves(allLeaves);
+            } else {
+                const filtered = allLeaves.filter(l => l.status === status);
+                renderLeaves(filtered);
+            }
+        }
+
+        // Submit form
+        document.getElementById('leaveForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const data = {
+                employee_id: EMPLOYEE_ID,
+                leave_type: document.querySelector('input[name="leave_type"]:checked').value,
+                start_date: document.getElementById('start_date').value,
+                end_date: document.getElementById('end_date').value,
+                reason: document.getElementById('reason').value
+            };
+            
+            if (!data.start_date || !data.end_date || !data.reason) {
+                showToast('Vui lòng điền đầy đủ thông tin', 'warning');
+                return;
+            }
+            
+            if (new Date(data.end_date) < new Date(data.start_date)) {
+                showToast('Ngày kết thúc phải sau ngày bắt đầu', 'error');
+                return;
+            }
+            
+            try {
+                const res = await fetch('../api/leaves.php', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(data)
+                });
+                const result = await res.json();
+                
+                if (result.success) {
+                    showToast('Gửi đơn nghỉ phép thành công!', 'success');
+                    this.reset();
+                    document.getElementById('daysCount').textContent = '0 ngày';
+                    loadLeaves();
+                } else {
+                    showToast(result.error || 'Có lỗi xảy ra', 'error');
+                }
+            } catch(e) {
+                showToast('Lỗi kết nối server', 'error');
+            }
+        });
+
+        // Load khi mở trang
+        loadLeaves();
+    </script>
+</body>
+</html>

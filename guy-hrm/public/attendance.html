@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUY HRM - Chấm công</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">G</div>
+                <div class="sidebar-brand"><h3>GUY HRM</h3><span>Quản lý nhân sự</span></div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span> Tổng quan</a>
+                <a href="employees.html" class="nav-item"><span class="nav-icon">👥</span> Nhân sự</a>
+                <a href="schedule.html" class="nav-item"><span class="nav-icon">📅</span> Lịch làm việc</a>
+                <a href="attendance.html" class="nav-item active"><span class="nav-icon">⏱️</span> Chấm công</a>
+                <a href="leave-request.html" class="nav-item"><span class="nav-icon">📝</span> Nghỉ phép</a>
+                <a href="leave-approval.html" class="nav-item"><span class="nav-icon">✅</span> Duyệt đơn</a>
+                <div class="nav-section-title">Tài chính</div>
+                <a href="salary.html" class="nav-item"><span class="nav-icon">💰</span> Bảng lương</a>
+                <a href="report.html" class="nav-item"><span class="nav-icon">📈</span> Báo cáo</a>
+                <div class="nav-section-title">Hệ thống</div>
+                <a href="permission.html" class="nav-item"><span class="nav-icon">🔒</span> Phân quyền</a>
+                <a href="settings.html" class="nav-item"><span class="nav-icon">⚙️</span> Cài đặt</a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-user-avatar">LN</div>
+                    <div class="sidebar-user-info"><h4>Lê Đại Nghĩa</h4><span>Quản trị viên</span></div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <div class="page-header-left">
+                    <h1>⏱️ Chấm công</h1>
+                    <p>Theo dõi thời gian làm việc của nhân viên</p>
+                </div>
+                <div class="page-header-actions">
+                    <button class="btn btn-primary btn-sm">📥 Xuất Excel</button>
+                </div>
+            </div>
+
+            <div class="page-content">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-icon blue">👥</div>
+                        <div class="stat-card-value">56</div>
+                        <div class="stat-card-label">Tổng nhân viên</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-icon green">✅</div>
+                        <div class="stat-card-value">48</div>
+                        <div class="stat-card-label">Đã chấm công</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-icon orange"></div>
+                        <div class="stat-card-value">3</div>
+                        <div class="stat-card-label">Đi muộn</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-icon red">❌</div>
+                        <div class="stat-card-value">2</div>
+                        <div class="stat-card-label">Vắng mặt</div>
+                    </div>
+                </div>
+
+                <div class="filter-bar">
+                    <input type="date" value="2026-10-19">
+                    <select><option>Tất cả phòng ban</option><option>Bán hàng</option><option>Thu ngân</option></select>
+                    <select><option>Tất cả ca</option><option>Ca sáng</option><option>Ca chiều</option></select>
+                    <input type="search" placeholder="🔍 Tìm nhân viên...">
+                </div>
+
+                <div class="card">
+                    <div class="card-header"><h3>Bảng chấm công hôm nay</h3></div>
+                    <div class="card-body no-padding">
+                        <div class="table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nhân viên</th>
+                                        <th>Ca</th>
+                                        <th>Check In</th>
+                                        <th>Check Out</th>
+                                        <th>Giờ làm</th>
+                                        <th>Trạng thái</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="employee-cell">
+                                                <div class="employee-avatar blue">NA</div>
+                                                <div class="employee-info"><h4>Nguyễn Văn An</h4><span>NV001</span></div>
+                                            </div>
+                                        </td>
+                                        <td>Ca sáng</td>
+                                        <td>07:58</td>
+                                        <td>17:05</td>
+                                        <td><strong>8h07</strong></td>
+                                        <td><span class="badge badge-success">Đúng giờ</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="employee-cell">
+                                                <div class="employee-avatar green">TB</div>
+                                                <div class="employee-info"><h4>Trần Thị Bình</h4><span>NV002</span></div>
+                                            </div>
+                                        </td>
+                                        <td>Ca chiều</td>
+                                        <td>14:12</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td><span class="badge badge-warning">Đi muộn</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="employee-cell">
+                                                <div class="employee-avatar orange">MQ</div>
+                                                <div class="employee-info"><h4>Nguyễn Minh Quân</h4><span>NV003</span></div>
+                                            </div>
+                                        </td>
+                                        <td>Ca sáng</td>
+                                        <td>07:45</td>
+                                        <td>16:30</td>
+                                        <td><strong>8h45</strong></td>
+                                        <td><span class="badge badge-success">Đúng giờ</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="employee-cell">
+                                                <div class="employee-avatar purple">HL</div>
+                                                <div class="employee-info"><h4>Hoàng Phương Linh</h4><span>NV004</span></div>
+                                            </div>
+                                        </td>
+                                        <td>Ca chiều</td>
+                                        <td>13:55</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td><span class="badge badge-success">Đúng giờ</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="employee-cell">
+                                                <div class="employee-avatar red">TH</div>
+                                                <div class="employee-info"><h4>Trần Gia Huy</h4><span>NV005</span></div>
+                                            </div>
+                                        </td>
+                                        <td>Ca sáng</td>
+                                        <td>08:15</td>
+                                        <td>17:20</td>
+                                        <td><strong>9h05</strong></td>
+                                        <td><span class="badge badge-warning">Đi muộn</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-grid content-grid-2">
+                    <div class="alert alert-warning">⚠️ 3 nhân viên đi muộn hôm nay</div>
+                    <div class="alert alert-danger">❌ 2 nhân viên chưa check out</div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="js/app.js"></script>
+</body>
+</html>

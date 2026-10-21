@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUY HRM - Báo cáo</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">G</div>
+                <div class="sidebar-brand"><h3>GUY HRM</h3><span>Quản lý nhân sự</span></div>
+            </div>
+            <nav class="sidebar-nav">
+    <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span> Tổng quan</a>
+    <a href="employees.html" class="nav-item"><span class="nav-icon">👥</span> Nhân sự</a>
+    <a href="schedule.html" class="nav-item"><span class="nav-icon">📅</span> Lịch làm việc</a>
+    <a href="attendance.html" class="nav-item"><span class="nav-icon">⏱️</span> Chấm công</a>
+    <a href="leave-request.html" class="nav-item"><span class="nav-icon">📝</span> Nghỉ phép</a>
+    <a href="leave-approval.html" class="nav-item"><span class="nav-icon">✅</span> Duyệt đơn</a>
+    <div class="nav-section-title">Tài chính</div>
+    <a href="salary.html" class="nav-item"><span class="nav-icon">💰</span> Bảng lương</a>
+    <a href="report.html" class="nav-item"><span class="nav-icon">📈</span> Báo cáo</a>
+    <div class="nav-section-title">Hệ thống</div>
+    <a href="permission.html" class="nav-item"><span class="nav-icon">🔒</span> Phân quyền</a>
+    <a href="settings.html" class="nav-item"><span class="nav-icon">️⚙️</span> Cài đặt</a>
+</nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-user-avatar">LN</div>
+                    <div class="sidebar-user-info"><h4>Lê Đại Nghĩa</h4><span>Quản trị viên</span></div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <div class="page-header-left">
+                    <h1>📈 Báo cáo & Thống kê</h1>
+                    <p>Phân tích dữ liệu nhân sự và hiệu suất làm việc</p>
+                </div>
+                <div class="page-header-actions">
+                    <button class="btn btn-outline btn-sm">📅 Tháng này</button>
+                    <button class="btn btn-outline btn-sm">📥 Xuất PDF</button>
+                    <button class="btn btn-primary btn-sm">🔄 Làm mới</button>
+                </div>
+            </div>
+
+            <div class="page-content">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-icon blue">👥</div>
+                        <div class="stat-card-value">56</div>
+                        <div class="stat-card-label">Tổng nhân sự</div>
+                        <div class="stat-card-change positive">+3 so với tháng trước</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-icon green"></div>
+                        <div class="stat-card-value">94%</div>
+                        <div class="stat-card-label">Tỷ lệ chuyên cần</div>
+                        <div class="stat-card-change positive">+2% so với tháng trước</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-icon orange">⏰</div>
+                        <div class="stat-card-value">12</div>
+                        <div class="stat-card-label">Tổng đi muộn</div>
+                        <div class="stat-card-change negative">+5 so với tháng trước</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-icon purple">💰</div>
+                        <div class="stat-card-value">248M</div>
+                        <div class="stat-card-label">Chi phí nhân sự</div>
+                        <div class="stat-card-change positive">+5% so với tháng trước</div>
+                    </div>
+                </div>
+
+                <div class="content-grid content-grid-2">
+                    <div class="card">
+                        <div class="card-header"><h3>📊 Thống kê nhân sự theo tháng</h3></div>
+                        <div class="card-body">
+                            <div style="display:flex;align-items:flex-end;gap:12px;height:200px;padding:20px 0">
+                                <div style="flex:1;text-align:center">
+                                    <div style="background:#3B5BDB;height:120px;border-radius:8px 8px 0 0"></div>
+                                    <div style="font-size:12px;margin-top:8px;color:#6B7280">T7</div>
+                                    <div style="font-size:14px;font-weight:700">48</div>
+                                </div>
+                                <div style="flex:1;text-align:center">
+                                    <div style="background:#3B5BDB;height:140px;border-radius:8px 8px 0 0"></div>
+                                    <div style="font-size:12px;margin-top:8px;color:#6B7280">T8</div>
+                                    <div style="font-size:14px;font-weight:700">51</div>
+                                </div>
+                                <div style="flex:1;text-align:center">
+                                    <div style="background:#3B5BDB;height:150px;border-radius:8px 8px 0 0"></div>
+                                    <div style="font-size:12px;margin-top:8px;color:#6B7280">T9</div>
+                                    <div style="font-size:14px;font-weight:700">53</div>
+                                </div>
+                                <div style="flex:1;text-align:center">
+                                    <div style="background:#5B7BEB;height:170px;border-radius:8px 8px 0 0"></div>
+                                    <div style="font-size:12px;margin-top:8px;color:#6B7280">T10</div>
+                                    <div style="font-size:14px;font-weight:700;color:#3B5BDB">56</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header"><h3>🥧 Phân bổ theo phòng ban</h3></div>
+                        <div class="card-body">
+                            <div class="department-bar-item">
+                                <div class="department-bar-header"><span class="name">Bán hàng</span><span class="count">24 (43%)</span></div>
+                                <div class="department-bar-track"><div class="department-bar-fill" style="width:43%"></div></div>
+                            </div>
+                            <div class="department-bar-item">
+                                <div class="department-bar-header"><span class="name">Thu ngân</span><span class="count">12 (21%)</span></div>
+                                <div class="department-bar-track"><div class="department-bar-fill" style="width:21%"></div></div>
+                            </div>
+                            <div class="department-bar-item">
+                                <div class="department-bar-header"><span class="name">Kho vận</span><span class="count">10 (18%)</span></div>
+                                <div class="department-bar-track"><div class="department-bar-fill" style="width:18%"></div></div>
+                            </div>
+                            <div class="department-bar-item">
+                                <div class="department-bar-header"><span class="name">Quản lý & Nhân sự</span><span class="count">10 (18%)</span></div>
+                                <div class="department-bar-track"><div class="department-bar-fill" style="width:18%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-grid content-grid-2">
+                    <div class="card">
+                        <div class="card-header"><h3>️ Báo cáo chấm công</h3></div>
+                        <div class="card-body">
+                            <div class="schedule-list-item"><span>✅ Đúng giờ</span><span style="font-weight:700;color:#10B981">1,245 lượt</span></div>
+                            <div class="schedule-list-item"><span>️ Đi muộn</span><span style="font-weight:700;color:#F59E0B">87 lượt</span></div>
+                            <div class="schedule-list-item"><span>❌ Vắng mặt</span><span style="font-weight:700;color:#EF4444">23 lượt</span></div>
+                            <div class="schedule-list-item"><span>🌙 Tăng ca</span><span style="font-weight:700;color:#3B5BDB">156 lượt</span></div>
+                            <div class="schedule-list-item"><span>🏖️ Nghỉ phép</span><span style="font-weight:700;color:#8B5CF6">45 lượt</span></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header"><h3>🏆 Top nhân viên xuất sắc</h3></div>
+                        <div class="card-body">
+                            <div class="new-employee-item">
+                                <div class="new-employee-avatar" style="background:#FEF3C7;color:#F59E0B">🥇</div>
+                                <div class="new-employee-info"><h4>Trần Thị Bình</h4><span>Thu ngân - 100% chuyên cần</span></div>
+                            </div>
+                            <div class="new-employee-item">
+                                <div class="new-employee-avatar" style="background:#E5E7EB;color:#6B7280">🥈</div>
+                                <div class="new-employee-info"><h4>Nguyễn Văn An</h4><span>Bán hàng - Doanh số cao nhất</span></div>
+                            </div>
+                            <div class="new-employee-item">
+                                <div class="new-employee-avatar" style="background:#FED7AA;color:#C2410C">🥉</div>
+                                <div class="new-employee-info"><h4>Hoàng Phương Linh</h4><span>Thu ngân - Không đi muộn</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="js/app.js"></script>
+</body>
+</html>

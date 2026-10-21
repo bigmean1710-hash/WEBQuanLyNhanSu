@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUY HRM - Lịch sử lương</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .history-header {
+            background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);
+            color: white;
+            padding: 32px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .history-header-left { display: flex; align-items: center; gap: 20px; }
+        .history-avatar {
+            width: 80px; height: 80px; border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 32px; font-weight: 800; color: white;
+        }
+        .history-header h1 { font-size: 28px; margin-bottom: 4px; }
+        .history-header .subtitle { opacity: 0.9; font-size: 14px; }
+        
+        .year-selector {
+            background: rgba(255,255,255,0.15);
+            padding: 12px 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .year-selector select {
+            background: white;
+            color: #6D28D9;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .stat-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #F3F4F6;
+            text-align: center;
+        }
+        .stat-box .label { font-size: 12px; color: #9CA3AF; margin-bottom: 8px; }
+        .stat-box .value { font-size: 24px; font-weight: 800; color: #1A1D2E; }
+        .stat-box .sub { font-size: 12px; color: #6B7280; margin-top: 4px; }
+        .stat-box.highlight { background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%); color: white; }
+        .stat-box.highlight .label { color: rgba(255,255,255,0.8); }
+        .stat-box.highlight .value { color: white; }
+        .stat-box.highlight .sub { color: rgba(255,255,255,0.8); }
+        
+        .trend-up { color: #10B981; }
+        .trend-down { color: #EF4444; }
+        .trend-stable { color: #6B7280; }
+        
+        .chart-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid #F3F4F6;
+            margin-bottom: 24px;
+        }
+        .chart-card h3 { font-size: 18px; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+        
+        /* Bar Chart */
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            height: 280px;
+            padding: 20px 0;
+            border-bottom: 2px solid #F3F4F6;
+            position: relative;
+        }
+        .bar-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+        }
+        .bar {
+            width: 70%;
+            max-width: 50px;
+            background: linear-gradient(180deg, #8B5CF6 0%, #6D28D9 100%);
+            border-radius: 8px 8px 0 0;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            min-height: 4px;
+        }
+        .bar:hover {
+            opacity: 0.8;
+            transform: scaleY(1.05);
+            transform-origin: bottom;
+        }
+        .bar.no-data {
+            background: #E5E7EB;
+            cursor: default;
+        }
+        .bar-value {
+            position: absolute;
+            top: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            font-weight: 700;
+            color: #6D28D9;
+            white-space: nowrap;
+        }
+        .bar-label {
+            font-size: 12px;
+            color: #6B7280;
+            font-weight: 600;
+        }
+        .bar-group.current .bar-label {
+            color: #6D28D9;
+            font-weight: 800;
+        }
+        
+        /* Legend */
+        .chart-legend {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 16px;
+            font-size: 13px;
+            color: #6B7280;
+        }
+        .legend-item { display: flex; align-items: center; gap: 6px; }
+        .legend-color { width: 12px; height: 12px; border-radius: 3px; }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px; top: 0; bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #8B5CF6 0%, #6D28D9 100%);
+            border-radius: 3px;
+        }
+        .timeline-item {
+            position: relative;
+            padding: 20px;
+            margin-bottom: 16px;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #F3F4F6;
+            transition: all 0.3s;
+        }
+        .timeline-item:hover {
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
+            border-color: #8B5CF6;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -26px; top: 24px;
+            width: 14px; height: 14px;
+            border-radius: 50%;
+            background: #8B5CF6;
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px #8B5CF6;
+        }
+        .timeline-item.no-data::before { background: #D1D5DB; box-shadow: 0 0 0 2px #D1D5DB; }
+        
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .timeline-month { font-size: 16px; font-weight: 700; color: #1A1D2E; }
+        .timeline-salary { font-size: 20px; font-weight: 800; color: #6D28D9; }
+        .timeline-item.no-data .timeline-salary { color: #9CA3AF; }
+        
+        .timeline-details {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #F3F4F6;
+        }
+        .timeline-detail-item {
+            font-size: 13px;
+        }
+        .timeline-detail-item .label { color: #9CA3AF; margin-bottom: 2px; }
+        .timeline-detail-item .value { font-weight: 700; color: #1A1D2E; }
+        .timeline-detail-item .value.positive { color: #10B981; }
+        .timeline-detail-item .value.negative { color: #EF4444; }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        .status-paid { background: #D1FAE5; color: #065F46; }
+        .status-approved { background: #DBEAFE; color: #1E40AF; }
+        .status-draft { background: #FEF3C7; color: #92400E; }
+        .status-none { background: #F3F4F6; color: #9CA3AF; }
+        
+        .btn-back {
+            background: white;
+            border: 2px solid #E5E7EB;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #6D28D9;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-back:hover { border-color: #6D28D9; }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #9CA3AF;
+        }
+        .empty-state .icon { font-size: 64px; margin-bottom: 16px; }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">G</div>
+                <div class="sidebar-brand"><h3>GUY HRM</h3><span>Quản lý nhân sự</span></div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><span class="nav-icon"></span> Tổng quan</a>
+                <a href="employees.html" class="nav-item"><span class="nav-icon">👥</span> Nhân sự</a>
+                <a href="schedule.html" class="nav-item"><span class="nav-icon"></span> Lịch làm việc</a>
+                <a href="attendance.html" class="nav-item"><span class="nav-icon">⏱️</span> Chấm công</a>
+                <div class="nav-section-title">Tài chính</div>
+                <a href="salary.html" class="nav-item active"><span class="nav-icon"></span> Bảng lương</a>
+                <a href="report.html" class="nav-item"><span class="nav-icon"></span> Báo cáo</a>
+                <div class="nav-section-title">Hệ thống</div>
+                <a href="permission.html" class="nav-item"><span class="nav-icon"></span> Phân quyền</a>
+                <a href="settings.html" class="nav-item"><span class="nav-icon">⚙️</span> Cài đặt</a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-user-avatar">LN</div>
+                    <div class="sidebar-user-info"><h4>Lê Đại Nghĩa</h4><span>Quản trị viên</span></div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <div class="page-header-left">
+                    <a href="salary.html" class="btn-back">← Quay lại Bảng lương</a>
+                </div>
+                <div class="page-header-actions">
+                    <button class="btn btn-outline btn-sm" onclick="exportHistory()">📥 Xuất báo cáo</button>
+                    <button class="btn btn-primary btn-sm" onclick="window.print()">🖨️ In</button>
+                </div>
+            </div>
+
+            <div class="page-content" id="historyContent">
+                <div style="text-align:center;padding:60px">
+                    <div class="spinner" style="margin:0 auto"></div>
+                    <p style="margin-top:16px;color:#6B7280">Đang tải lịch sử lương...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="js/app.js"></script>
+    <script>
+        function getEmployeeId() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('employee_id');
+        }
+
+        async function loadHistory() {
+            const employeeId = getEmployeeId();
+            const year = new URLSearchParams(window.location.search).get('year') || new Date().getFullYear();
+            
+            if (!employeeId) {
+                document.getElementById('historyContent').innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">❓</div>
+                        <h3>Không tìm thấy nhân viên</h3>
+                        <p>Vui lòng chọn nhân viên từ trang Bảng lương</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            try {
+                const res = await fetch(`../api/salary-history.php?employee_id=${employeeId}&year=${year}`);
+                const data = await res.json();
+                
+                if (data.error) {
+                    showToast(data.error, 'error');
+                    return;
+                }
+                
+                renderHistory(data);
+            } catch(e) {
+                console.error('Lỗi:', e);
+                document.getElementById('historyContent').innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">❌</div>
+                        <h3>Lỗi kết nối</h3>
+                        <p>Không thể tải dữ liệu từ server</p>
+                    </div>
+                `;
+            }
+        }
+
+        function renderHistory(data) {
+            const emp = data.employee;
+            const monthlyData = data.monthly_data;
+            const stats = data.stats;
+            const year = data.year;
+            const currentMonth = new Date().getMonth() + 1;
+            
+            const initials = emp.full_name.split(' ').pop().substring(0,2).toUpperCase();
+            
+            const trendMap = {
+                'up': { icon: '📈', text: 'Tăng', class: 'trend-up' },
+                'down': { icon: '📉', text: 'Giảm', class: 'trend-down' },
+                'stable': { icon: '➡️', text: 'Ổn định', class: 'trend-stable' }
+            };
+            const trend = trendMap[stats.trend];
+            
+            // Bar chart
+            const maxSalary = Math.max(...monthlyData.map(m => m.total_salary), 1);
+            const barsHtml = monthlyData.map(m => {
+                const height = m.has_data ? (m.total_salary / maxSalary * 240) : 4;
+                const isCurrent = m.month === currentMonth;
+                return `
+                    <div class="bar-group ${isCurrent ? 'current' : ''}">
+                        <div class="bar ${m.has_data ? '' : 'no-data'}" 
+                             style="height: ${height}px"
+                             onclick="viewMonthDetail(${m.month})"
+                             title="${m.has_data ? formatCurrency(m.total_salary) : 'Chưa có dữ liệu'}">
+                            ${m.has_data ? `<div class="bar-value">${formatShort(m.total_salary)}</div>` : ''}
+                        </div>
+                        <div class="bar-label">T${m.month}</div>
+                    </div>
+                `;
+            }).join('');
+            
+            // Timeline
+            const timelineHtml = monthlyData.map(m => {
+                const statusMap = {
+                    'draft': ['status-draft', 'Chờ duyệt'],
+                    'approved': ['status-approved', 'Đã duyệt'],
+                    'paid': ['status-paid', 'Đã thanh toán']
+                };
+                const [statusClass, statusText] = m.status ? (statusMap[m.status] || ['status-none', '—']) : ['status-none', 'Chưa có'];
+                const overtimePay = m.has_data ? (m.overtime_hours * (m.base_salary / (m.working_days * 8)) * 1.5) : 0;
+                
+                return `
+                    <div class="timeline-item ${m.has_data ? '' : 'no-data'}">
+                        <div class="timeline-header">
+                            <div>
+                                <span class="timeline-month">Tháng ${m.month}/${m.year}</span>
+                                <span class="status-badge ${statusClass}">${statusText}</span>
+                            </div>
+                            <div class="timeline-salary">${m.has_data ? formatCurrency(m.total_salary) : '—'}</div>
+                        </div>
+                        ${m.has_data ? `
+                            <div class="timeline-details">
+                                <div class="timeline-detail-item">
+                                    <div class="label">💵 Lương CB</div>
+                                    <div class="value">${formatCurrency(m.base_salary)}</div>
+                                </div>
+                                <div class="timeline-detail-item">
+                                    <div class="label"> Thưởng + Phụ cấp</div>
+                                    <div class="value positive">+${formatCurrency(m.bonus + m.allowance)}</div>
+                                </div>
+                                <div class="timeline-detail-item">
+                                    <div class="label">⏰ Tăng ca</div>
+                                    <div class="value positive">${m.overtime_hours}h (+${formatCurrency(overtimePay)})</div>
+                                </div>
+                                <div class="timeline-detail-item">
+                                    <div class="label">📉 Khấu trừ</div>
+                                    <div class="value negative">-${formatCurrency(m.social_insurance + m.health_insurance + m.unemployment_insurance + m.tax + m.deduction)}</div>
+                                </div>
+                            </div>
+                        ` : '<div style="color:#9CA3AF;font-size:13px;padding:8px 0">Chưa có dữ liệu lương tháng này</div>'}
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('historyContent').innerHTML = `
+                <!-- Header -->
+                <div class="history-header">
+                    <div class="history-header-left">
+                        <div class="history-avatar">${initials}</div>
+                        <div>
+                            <h1>${emp.full_name}</h1>
+                            <div class="subtitle">${emp.employee_code} • ${emp.department_name || 'Chưa phân ban'} • ${emp.position || ''}</div>
+                        </div>
+                    </div>
+                    <div class="year-selector">
+                        <span style="font-size:14px">Năm:</span>
+                        <select onchange="changeYear(this.value)">
+                            <option value="2025" ${year == 2025 ? 'selected' : ''}>2025</option>
+                            <option value="2026" ${year == 2026 ? 'selected' : ''}>2026</option>
+                            <option value="2027" ${year == 2027 ? 'selected' : ''}>2027</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <div class="stats-row">
+                    <div class="stat-box highlight">
+                        <div class="label">Tổng lương năm ${year}</div>
+                        <div class="value">${formatShort(stats.total)}</div>
+                        <div class="sub">${stats.months_with_data} tháng có lương</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="label">Lương trung bình</div>
+                        <div class="value">${formatShort(stats.average)}</div>
+                        <div class="sub">/ tháng</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="label">Tháng cao nhất</div>
+                        <div class="value trend-up">${formatShort(stats.max)}</div>
+                        <div class="sub">Tháng ${stats.max_month}/${year}</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="label">Tháng thấp nhất</div>
+                        <div class="value trend-down">${formatShort(stats.min)}</div>
+                        <div class="sub">Tháng ${stats.min_month}/${year}</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="label">Xu hướng</div>
+                        <div class="value ${trend.class}">${trend.icon} ${trend.text}</div>
+                        <div class="sub">So với tháng trước</div>
+                    </div>
+                </div>
+
+                <!-- Chart -->
+                <div class="chart-card">
+                    <h3>📊 Biểu đồ lương 12 tháng năm ${year}</h3>
+                    <div class="bar-chart">
+                        ${barsHtml}
+                    </div>
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background:linear-gradient(180deg,#8B5CF6,#6D28D9)"></div>
+                            <span>Có dữ liệu</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background:#E5E7EB"></div>
+                            <span>Chưa có dữ liệu</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background:#8B5CF6;border:2px solid #6D28D9"></div>
+                            <span>Tháng hiện tại</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline -->
+                <div class="chart-card">
+                    <h3>📅 Chi tiết lương từng tháng</h3>
+                    <div class="timeline">
+                        ${timelineHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        function changeYear(year) {
+            const employeeId = getEmployeeId();
+            window.location.href = `salary-history.html?employee_id=${employeeId}&year=${year}`;
+        }
+
+        function viewMonthDetail(month) {
+            const employeeId = getEmployeeId();
+            const year = new URLSearchParams(window.location.search).get('year') || new Date().getFullYear();
+            window.location.href = `salary-detail.html?employee_id=${employeeId}&month=${month}&year=${year}`;
+        }
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+        }
+
+        function formatShort(amount) {
+            if (amount >= 1000000) {
+                return (amount / 1000000).toFixed(1) + 'M';
+            }
+            return new Intl.NumberFormat('vi-VN').format(amount) + '₫';
+        }
+
+        function exportHistory() {
+            showToast('Đang xuất báo cáo lịch sử lương...', 'info');
+            setTimeout(() => {
+                showToast('Đã xuất báo cáo thành công!', 'success');
+            }, 1000);
+        }
+
+        // Load khi mở trang
+        loadHistory();
+    </script>
+</body>
+</html>

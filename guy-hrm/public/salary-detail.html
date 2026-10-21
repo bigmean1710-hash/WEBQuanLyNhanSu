@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>GUY HRM - Chi tiết lương nhân viên</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .detail-header {
+            background: linear-gradient(135deg, #3B5BDB 0%, #5B7BEB 100%);
+            color: white;
+            padding: 32px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .detail-header-left { display: flex; align-items: center; gap: 20px; }
+        .detail-avatar {
+            width: 80px; height: 80px; border-radius: 50%;
+            background: rgba(255,255,255,0.2); 
+            display: flex; align-items: center; justify-content: center;
+            font-size: 32px; font-weight: 800; color: white;
+        }
+        .detail-header h1 { font-size: 28px; margin-bottom: 4px; }
+        .detail-header .subtitle { opacity: 0.9; font-size: 14px; }
+        .detail-header-right { text-align: right; }
+        .detail-header-right .month { font-size: 16px; opacity: 0.9; }
+        .detail-header-right .total { font-size: 36px; font-weight: 800; margin-top: 8px; }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .info-item {
+            background: white;
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid #F3F4F6;
+        }
+        .info-item .label { font-size: 12px; color: #9CA3AF; margin-bottom: 4px; }
+        .info-item .value { font-size: 16px; font-weight: 700; color: #1A1D2E; }
+        
+        .finance-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        .finance-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid #F3F4F6;
+        }
+        .finance-card.income { border-top: 4px solid #10B981; }
+        .finance-card.deduction { border-top: 4px solid #EF4444; }
+        .finance-card h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .finance-card.income h3 { color: #10B981; }
+        .finance-card.deduction h3 { color: #EF4444; }
+        
+        .finance-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #F3F4F6;
+        }
+        .finance-item:last-child { border-bottom: none; }
+        .finance-item-left { display: flex; align-items: center; gap: 12px; }
+        .finance-icon {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px;
+        }
+        .income .finance-icon { background: #D1FAE5; }
+        .deduction .finance-icon { background: #FEE2E2; }
+        .finance-item-info h4 { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+        .finance-item-info p { font-size: 12px; color: #9CA3AF; }
+        .finance-item-value { font-size: 16px; font-weight: 700; }
+        .income .finance-item-value { color: #10B981; }
+        .deduction .finance-item-value { color: #EF4444; }
+        
+        .finance-total {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 2px dashed #E5E7EB;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .finance-total .label { font-size: 14px; font-weight: 600; color: #6B7280; }
+        .finance-total .value { font-size: 20px; font-weight: 800; }
+        .income .finance-total .value { color: #10B981; }
+        .deduction .finance-total .value { color: #EF4444; }
+        
+        .summary-card {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+            padding: 32px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .summary-card .label { font-size: 16px; opacity: 0.9; margin-bottom: 8px; }
+        .summary-card .value { font-size: 48px; font-weight: 800; }
+        .summary-card .sub { font-size: 14px; opacity: 0.8; margin-top: 8px; }
+        
+        .history-timeline {
+            position: relative;
+            padding-left: 24px;
+        }
+        .history-timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px; top: 0; bottom: 0;
+            width: 2px;
+            background: #E5E7EB;
+        }
+        .history-item {
+            position: relative;
+            padding: 16px 0 16px 24px;
+            border-bottom: 1px solid #F3F4F6;
+        }
+        .history-item::before {
+            content: '';
+            position: absolute;
+            left: -20px; top: 20px;
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            background: #3B5BDB;
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px #3B5BDB;
+        }
+        .history-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .history-item-header h4 { font-size: 15px; font-weight: 700; }
+        .history-item-value { font-size: 18px; font-weight: 800; color: #3B5BDB; }
+        .history-item-detail {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            font-size: 13px;
+            color: #6B7280;
+        }
+        .history-item-detail span strong { color: #1A1D2E; }
+        
+        .attendance-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .att-stat {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #F3F4F6;
+        }
+        .att-stat .value { font-size: 32px; font-weight: 800; margin-bottom: 4px; }
+        .att-stat .label { font-size: 13px; color: #6B7280; }
+        .att-stat.on-time .value { color: #10B981; }
+        .att-stat.late .value { color: #F59E0B; }
+        .att-stat.absent .value { color: #EF4444; }
+        .att-stat.hours .value { color: #3B5BDB; }
+        
+        .btn-back {
+            background: white;
+            border: 2px solid #E5E7EB;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #3B5BDB;
+            transition: 0.3s;
+        }
+        .btn-back:hover { border-color: #3B5BDB; }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .status-paid { background: #D1FAE5; color: #065F46; }
+        .status-approved { background: #DBEAFE; color: #1E40AF; }
+        .status-draft { background: #FEF3C7; color: #92400E; }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #9CA3AF;
+        }
+        .empty-state .icon { font-size: 64px; margin-bottom: 16px; }
+        .empty-state h3 { font-size: 20px; margin-bottom: 8px; color: #6B7280; }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">G</div>
+                <div class="sidebar-brand"><h3>GUY HRM</h3><span>Quản lý nhân sự</span></div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><span class="nav-icon"></span> Tổng quan</a>
+                <a href="employees.html" class="nav-item"><span class="nav-icon">👥</span> Nhân sự</a>
+                <a href="schedule.html" class="nav-item"><span class="nav-icon">📅</span> Lịch làm việc</a>
+                <a href="attendance.html" class="nav-item"><span class="nav-icon">⏱️</span> Chấm công</a>
+                <div class="nav-section-title">Tài chính</div>
+                <a href="salary.html" class="nav-item active"><span class="nav-icon"></span> Bảng lương</a>
+                <a href="report.html" class="nav-item"><span class="nav-icon">📈</span> Báo cáo</a>
+                <div class="nav-section-title">Hệ thống</div>
+                <a href="permission.html" class="nav-item"><span class="nav-icon">🔒</span> Phân quyền</a>
+                <a href="settings.html" class="nav-item"><span class="nav-icon">⚙️</span> Cài đặt</a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-user-avatar">LN</div>
+                    <div class="sidebar-user-info"><h4>Lê Đại Nghĩa</h4><span>Quản trị viên</span></div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <div class="page-header-left">
+                    <button class="btn-back" onclick="window.location.href='salary.html'">← Quay lại</button>
+                </div>
+                <div class="page-header-actions">
+                    <select id="viewMonth" onchange="loadDetail()" style="padding:10px 14px;border:2px solid #E5E7EB;border-radius:8px">
+                        <option value="1">Tháng 1</option><option value="2">Tháng 2</option>
+                        <option value="3">Tháng 3</option><option value="4">Tháng 4</option>
+                        <option value="5">Tháng 5</option><option value="6">Tháng 6</option>
+                        <option value="7">Tháng 7</option><option value="8">Tháng 8</option>
+                        <option value="9">Tháng 9</option><option value="10" selected>Tháng 10</option>
+                        <option value="11">Tháng 11</option><option value="12">Tháng 12</option>
+                    </select>
+                    <select id="viewYear" onchange="loadDetail()" style="padding:10px 14px;border:2px solid #E5E7EB;border-radius:8px">
+                        <option value="2025">2025</option>
+                        <option value="2026" selected>2026</option>
+                        <option value="2027">2027</option>
+                    </select>
+                    <button class="btn btn-primary btn-sm" onclick="printSalary()">🖨️ In phiếu lương</button>
+                </div>
+            </div>
+
+            <div class="page-content" id="detailContent">
+                <div style="text-align:center;padding:60px">
+                    <div class="spinner" style="margin:0 auto"></div>
+                    <p style="margin-top:16px;color:#6B7280">Đang tải dữ liệu...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="js/app.js"></script>
+    <script>
+        // Lấy employee_id từ URL
+        function getEmployeeId() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('employee_id');
+        }
+
+        async function loadDetail() {
+            const employeeId = getEmployeeId();
+            const month = document.getElementById('viewMonth').value;
+            const year = document.getElementById('viewYear').value;
+            
+            if (!employeeId) {
+                document.getElementById('detailContent').innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">❓</div>
+                        <h3>Không tìm thấy nhân viên</h3>
+                        <p>Vui lòng chọn nhân viên từ trang Bảng lương</p>
+                        <button class="btn btn-primary" style="margin-top:16px" onclick="window.location.href='salary.html'">← Về trang Bảng lương</button>
+                    </div>
+                `;
+                return;
+            }
+            
+            try {
+                const res = await fetch(`../api/salary.php?employee_id=${employeeId}&month=${month}&year=${year}`);
+                const data = await res.json();
+                
+                if (data.error) {
+                    showToast(data.error, 'error');
+                    return;
+                }
+                
+                renderDetail(data);
+            } catch(e) {
+                console.error('Lỗi:', e);
+                document.getElementById('detailContent').innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">❌</div>
+                        <h3>Lỗi kết nối</h3>
+                        <p>Không thể tải dữ liệu từ server</p>
+                    </div>
+                `;
+            }
+        }
+
+        function renderDetail(data) {
+            const emp = data.employee;
+            const salary = data.salary;
+            const history = data.history || [];
+            const att = data.attendance || {};
+            const month = data.month;
+            const year = data.year;
+            
+            const initials = emp.full_name.split(' ').pop().substring(0,2).toUpperCase();
+            
+            // Nếu chưa có lương tháng này
+            if (!salary) {
+                document.getElementById('detailContent').innerHTML = `
+                    <div class="detail-header">
+                        <div class="detail-header-left">
+                            <div class="detail-avatar">${initials}</div>
+                            <div>
+                                <h1>${emp.full_name}</h1>
+                                <div class="subtitle">${emp.employee_code} • ${emp.department_name || 'Chưa phân ban'} • ${emp.position || ''}</div>
+                            </div>
+                        </div>
+                        <div class="detail-header-right">
+                            <div class="month">Tháng ${month}/${year}</div>
+                        </div>
+                    </div>
+                    <div class="empty-state">
+                        <div class="icon"></div>
+                        <h3>Chưa có bảng lương tháng này</h3>
+                        <p>Nhân viên này chưa được tạo bảng lương cho tháng ${month}/${year}</p>
+                        <button class="btn btn-primary" style="margin-top:16px" onclick="window.location.href='salary.html'">← Về trang Bảng lương</button>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Tính toán
+            const totalIncome = parseFloat(salary.base_salary) + parseFloat(salary.bonus) + 
+                               parseFloat(salary.allowance) + (parseFloat(salary.overtime_hours) * (parseFloat(salary.base_salary) / (parseFloat(salary.working_days) * 8)) * 1.5);
+            const totalDeduction = parseFloat(salary.social_insurance) + parseFloat(salary.health_insurance) + 
+                                  parseFloat(salary.unemployment_insurance) + parseFloat(salary.tax) + parseFloat(salary.deduction);
+            
+            const statusMap = {
+                'draft': ['status-draft', 'Chờ duyệt'],
+                'approved': ['status-approved', 'Đã duyệt'],
+                'paid': ['status-paid', 'Đã thanh toán']
+            };
+            const [statusClass, statusText] = statusMap[salary.status] || ['status-draft', 'Chờ duyệt'];
+            
+            const overtimePay = parseFloat(salary.overtime_hours) * (parseFloat(salary.base_salary) / (parseFloat(salary.working_days) * 8)) * 1.5;
+            
+            document.getElementById('detailContent').innerHTML = `
+                <!-- Header -->
+                <div class="detail-header">
+                    <div class="detail-header-left">
+                        <div class="detail-avatar">${initials}</div>
+                        <div>
+                            <h1>${emp.full_name}</h1>
+                            <div class="subtitle">${emp.employee_code} • ${emp.department_name || 'Chưa phân ban'} • ${emp.position || ''}</div>
+                        </div>
+                    </div>
+                    <div class="detail-header-right">
+                        <div class="month">Tháng ${month}/${year} <span class="status-badge ${statusClass}" style="margin-left:8px">${statusText}</span></div>
+                        <div class="total">${formatCurrency(salary.total_salary)}</div>
+                        <div class="sub">Lương thực nhận</div>
+                    </div>
+                </div>
+
+                <!-- Info Grid -->
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="label">Mã nhân viên</div>
+                        <div class="value">${emp.employee_code}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="label">Email</div>
+                        <div class="value" style="font-size:14px">${emp.email || '-'}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="label">Số ngày công</div>
+                        <div class="value">${salary.working_days} ngày</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="label">Giờ tăng ca</div>
+                        <div class="value">${salary.overtime_hours} giờ</div>
+                    </div>
+                </div>
+
+                <!-- Attendance Stats -->
+                <h3 style="margin-bottom:16px;font-size:18px">⏱️ Thống kê chấm công tháng ${month}/${year}</h3>
+                <div class="attendance-stats">
+                    <div class="att-stat on-time">
+                        <div class="value">${att.on_time || 0}</div>
+                        <div class="label">Ngày đúng giờ</div>
+                    </div>
+                    <div class="att-stat late">
+                        <div class="value">${att.late || 0}</div>
+                        <div class="label">Ngày đi muộn</div>
+                    </div>
+                    <div class="att-stat absent">
+                        <div class="value">${att.absent || 0}</div>
+                        <div class="label">Ngày vắng mặt</div>
+                    </div>
+                    <div class="att-stat hours">
+                        <div class="value">${att.total_hours || 0}h</div>
+                        <div class="label">Tổng giờ làm</div>
+                    </div>
+                </div>
+
+                <!-- Finance Grid -->
+                <div class="finance-grid">
+                    <!-- Phụ cấp / Thu nhập -->
+                    <div class="finance-card income">
+                        <h3>💰 Các khoản phụ cấp & thu nhập</h3>
+                        
+                        <div class="finance-item">
+                            <div class="finance-item-left">
+                                <div class="finance-icon">💵</div>
+                                <div class="finance-item-info">
+                                    <h4>Lương cơ bản</h4>
+                                    <p>${salary.working_days} ngày công</p>
+                                </div>
+                            </div>
+                            <div class="finance-item-value">${formatCurrency(salary.base_salary)}</div>
+                        </div>
+                        
+                        <div class="finance-item">
+                            <div class="finance-item-left">
+                                <div class="finance-icon">🎁</div>
+                                <div class="finance-item-info">
+                                    <h4>Thưởng</h4>
+                                    <p>Thưởng hiệu suất</p>
+                                </div>
+                            </div>
+                            <div class="finance-item-value">+${formatCurrency(salary.bonus)}</div>
+                        </div>
+                        
+                        <div class="finance-item">
+                            <div class="finance-item-left">
+                                <div class="finance-icon"></div>
+                                <div class="finance-item-info">
+                                    <h4>Phụ cấp</h4>
+                                    <p>Phụ cấp công tác, ăn trưa...</p>
+                                </div>
+                            </div>
+                            <div class="finance-item-value">+${formatCurrency(salary.allowance)}</div>
+                        </div>
+                        
+                        <div class="finance-item">
+                            <div class="finance-item-left">
+                                <div class="finance-icon">⏰</div>
+                                <div class="finance-item-info">
+                                    <h4>Lương tăng ca</h4>
+                                    <p>${salary.overtime_hours} giờ × 1.5x</p>
+                                </div>
+                            </div>
+                            <div class="finance-item-value">+${formatCurrency(overtimePay)}</div>
+                        </div>
+                        
+                        <div class="finance-total">
+                            <div class="label">TỔNG THU NHẬP</div>
+                            <div class="value">${formatCurrency(totalIncome)}</div>
+                        </div>
+                    </div>
+
+                    <!-- Khấu trừ -->
+                    <div class="finance-card deduction">
+                        <h3>📉 Các khoản khấu trừ</h3>
+                        
+                        <div class="finance-item">
+                            <div class="finance-item-left">
+                                <div class="finance-icon">🏛️</div>
+                                <div class="finance-item-info">
+                                    <h4>Bảo hiểm xã hội</h4>
+                                    <p>8% lương cơ bản</p>
+                                </div>
+                            </div>
+                            <div class="finance-item-value">-${formatCurrency(salary.social_insurance)}</div>
+                        </div>
+                        
+                        <div class="finance-item">
+                            <div class="finance-item-left">
+                                <div class="finance-icon">🏥</div>
+                                <div class="finance-item-info">
+                                    <h4>Bảo hiểm y tế</h4>
+                                    <p>1.5% lương cơ bản</p>
+                                </div>
+                            </div>
+                            <div class="finance-item-value">-${formatCurrency(salary.health_insurance)}</div>
+                        </div>
+                        
+                        <div class="finance-item">
+                            <div class="finance-item-left">
+                                <div class="finance-icon">💼</div>
+                                <div class="finance-item-info">
+                                    <h4>Bảo hiểm thất nghiệp</h4>
+                                    <p>1% lương cơ bản</p>
+                                </div>
+                            </div>
+                            <div class="finance-item-value">-${formatCurrency(salary.unemployment_insurance)}</div>
+                        </div>
+                        
+                        <div class="finance-item">
+                            <div class="finance-item-left">
+                                <div class="finance-icon">📋</div>
+                                <div class="finance-item-info">
+                                    <h4>Thuế TNCN</h4>
+                                    <p>Thuế thu nhập cá nhân</p>
+                                </div>
+                            </div>
+                            <div class="finance-item-value">-${formatCurrency(salary.tax)}</div>
+                        </div>
+                        
+                        <div class="finance-item">
+                            <div class="finance-item-left">
+                                <div class="finance-icon">️</div>
+                                <div class="finance-item-info">
+                                    <h4>Khấu trừ khác</h4>
+                                    <p>${salary.note || 'Không có ghi chú'}</p>
+                                </div>
+                            </div>
+                            <div class="finance-item-value">-${formatCurrency(salary.deduction)}</div>
+                        </div>
+                        
+                        <div class="finance-total">
+                            <div class="label">TỔNG KHẤU TRỪ</div>
+                            <div class="value">-${formatCurrency(totalDeduction)}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary -->
+                <div class="summary-card">
+                    <div>
+                        <div class="label">💵 LƯƠNG THỰC NHẬN THÁNG ${month}/${year}</div>
+                        <div class="value">${formatCurrency(salary.total_salary)}</div>
+                        <div class="sub">= Tổng thu nhập ${formatCurrency(totalIncome)} - Tổng khấu trừ ${formatCurrency(totalDeduction)}</div>
+                    </div>
+                    <div style="text-align:right">
+                        <div style="font-size:14px;opacity:0.9">Ngày tạo</div>
+                        <div style="font-size:18px;font-weight:700">${new Date(salary.created_at).toLocaleDateString('vi-VN')}</div>
+                    </div>
+                </div>
+
+                <!-- History -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>📊 Lịch sử lương 6 tháng gần nhất</h3>
+                    </div>
+                    <div class="card-body">
+                        ${history.length === 0 ? 
+                            '<div class="empty-state"><div class="icon">📭</div><h3>Chưa có lịch sử lương</h3></div>' :
+                            `<div class="history-timeline">
+                                ${history.map(h => {
+                                    const hStatusMap = {
+                                        'draft': ['status-draft', 'Chờ duyệt'],
+                                        'approved': ['status-approved', 'Đã duyệt'],
+                                        'paid': ['status-paid', 'Đã thanh toán']
+                                    };
+                                    const [hClass, hText] = hStatusMap[h.status] || ['status-draft', 'Chờ duyệt'];
+                                    return `
+                                        <div class="history-item">
+                                            <div class="history-item-header">
+                                                <h4>Tháng ${h.month}/${h.year} <span class="status-badge ${hClass}" style="margin-left:8px">${hText}</span></h4>
+                                                <div class="history-item-value">${formatCurrency(h.total_salary)}</div>
+                                            </div>
+                                            <div class="history-item-detail">
+                                                <span>📅 <strong>${h.working_days}</strong> ngày công</span>
+                                                <span>⏰ <strong>${h.overtime_hours}</strong> giờ tăng ca</span>
+                                                <span>💰 <strong>${formatCurrency(h.total_salary)}</strong> thực nhận</span>
+                                            </div>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>`
+                        }
+                    </div>
+                </div>
+            `;
+        }
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+        }
+
+        function printSalary() {
+            window.print();
+        }
+
+        // Load khi mở trang
+        loadDetail();
+    </script>
+</body>
+</html>

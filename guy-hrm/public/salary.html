@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUY HRM - Bảng lương</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">G</div>
+                <div class="sidebar-brand"><h3>GUY HRM</h3><span>Quản lý nhân sự</span></div>
+            </div>
+            <nav class="sidebar-nav">
+    <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span> Tổng quan</a>
+    <a href="employees.html" class="nav-item"><span class="nav-icon">👥</span> Nhân sự</a>
+    <a href="schedule.html" class="nav-item"><span class="nav-icon">📅</span> Lịch làm việc</a>
+    <a href="attendance.html" class="nav-item"><span class="nav-icon">⏱️</span> Chấm công</a>
+    <a href="leave-request.html" class="nav-item"><span class="nav-icon">📝</span> Nghỉ phép</a>
+    <a href="leave-approval.html" class="nav-item"><span class="nav-icon">✅</span> Duyệt đơn</a>
+    <div class="nav-section-title">Tài chính</div>
+    <a href="salary.html" class="nav-item"><span class="nav-icon">💰</span> Bảng lương</a>
+    <a href="report.html" class="nav-item"><span class="nav-icon">📈</span> Báo cáo</a>
+    <div class="nav-section-title">Hệ thống</div>
+    <a href="permission.html" class="nav-item"><span class="nav-icon">🔒</span> Phân quyền</a>
+    <a href="settings.html" class="nav-item"><span class="nav-icon">️⚙️</span> Cài đặt</a>
+</nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-user-avatar">LN</div>
+                    <div class="sidebar-user-info"><h4>Lê Đại Nghĩa</h4><span>Quản trị viên</span></div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <div class="page-header-left">
+                    <h1>💰 Bảng lương</h1>
+                    <p>Quản lý lương, thưởng, phụ cấp và khấu trừ của nhân viên</p>
+                </div>
+                <div class="page-header-actions">
+                    <button class="btn btn-outline btn-sm">📅 Tháng 10/2026</button>
+                    <button class="btn btn-outline btn-sm">📥 Xuất Excel</button>
+                    <button class="btn btn-primary btn-sm">＋ Tính lương</button>
+                </div>
+            </div>
+
+            <div class="page-content">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-icon blue">💵</div>
+                        <div class="stat-card-value">248M</div>
+                        <div class="stat-card-label">Tổng quỹ lương</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-icon green">👥</div>
+                        <div class="stat-card-value">48</div>
+                        <div class="stat-card-label">Nhân viên có lương</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-icon orange">🎁</div>
+                        <div class="stat-card-value">12M</div>
+                        <div class="stat-card-label">Tổng thưởng</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-icon red">📉</div>
+                        <div class="stat-card-value">3.2M</div>
+                        <div class="stat-card-label">Tổng khấu trừ</div>
+                    </div>
+                </div>
+
+                <div class="filter-bar">
+                    <select><option>Tháng 10/2026</option><option>Tháng 9/2026</option><option>Tháng 8/2026</option></select>
+                    <select><option>Tất cả phòng ban</option><option>Bán hàng</option><option>Thu ngân</option></select>
+                    <select><option>Tất cả trạng thái</option><option>Đã duyệt</option><option>Chờ duyệt</option><option>Đã thanh toán</option></select>
+                    <input type="search" placeholder="🔍 Tìm nhân viên...">
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Bảng lương tháng 10/2026</h3>
+                        <div style="display:flex;gap:8px">
+                            <button class="btn btn-outline btn-sm">Import</button>
+                            <button class="btn btn-outline btn-sm">Export</button>
+                        </div>
+                    </div>
+                    <div class="card-body no-padding">
+                        <div class="table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th><input type="checkbox"></th>
+                                        <th>Mã NV</th>
+                                        <th>Họ tên</th>
+                                        <th>Phòng ban</th>
+                                        <th>Lương cơ bản</th>
+                                        <th>Thưởng</th>
+                                        <th>Khấu trừ</th>
+                                        <th>Thực nhận</th>
+                                        <th>Trạng thái</th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td><strong>NV001</strong></td>
+                                        <td><div class="employee-cell"><div class="employee-avatar blue">NA</div><div class="employee-info"><h4>Nguyễn Văn An</h4><span>Bán hàng</span></div></div></td>
+                                        <td>Bán hàng</td>
+                                        <td>8.500.000₫</td>
+                                        <td style="color:#10B981">+500.000₫</td>
+                                        <td style="color:#EF4444">-200.000₫</td>
+                                        <td><strong>8.800.000₫</strong></td>
+                                        <td><span class="badge badge-success">Đã thanh toán</span></td>
+                                        <td><button class="btn btn-outline btn-sm" style="padding:6px 10px">👁️</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td><strong>NV002</strong></td>
+                                        <td><div class="employee-cell"><div class="employee-avatar green">TB</div><div class="employee-info"><h4>Trần Thị Bình</h4><span>Thu ngân</span></div></div></td>
+                                        <td>Thu ngân</td>
+                                        <td>9.000.000₫</td>
+                                        <td style="color:#10B981">+800.000₫</td>
+                                        <td style="color:#EF4444">-150.000₫</td>
+                                        <td><strong>9.650.000₫</strong></td>
+                                        <td><span class="badge badge-success">Đã thanh toán</span></td>
+                                        <td><button class="btn btn-outline btn-sm" style="padding:6px 10px">️</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td><strong>NV003</strong></td>
+                                        <td><div class="employee-cell"><div class="employee-avatar orange">MQ</div><div class="employee-info"><h4>Nguyễn Minh Quân</h4><span>Thử việc</span></div></div></td>
+                                        <td>Bán hàng</td>
+                                        <td>7.000.000₫</td>
+                                        <td style="color:#10B981">+0₫</td>
+                                        <td style="color:#EF4444">-100.000₫</td>
+                                        <td><strong>6.900.000₫</strong></td>
+                                        <td><span class="badge badge-warning">Chờ duyệt</span></td>
+                                        <td><button class="btn btn-outline btn-sm" style="padding:6px 10px">️</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td><strong>NV004</strong></td>
+                                        <td><div class="employee-cell"><div class="employee-avatar purple">HL</div><div class="employee-info"><h4>Hoàng Phương Linh</h4><span>Thu ngân</span></div></div></td>
+                                        <td>Thu ngân</td>
+                                        <td>8.500.000₫</td>
+                                        <td style="color:#10B981">+600.000₫</td>
+                                        <td style="color:#EF4444">-180.000₫</td>
+                                        <td><strong>8.920.000₫</strong></td>
+                                        <td><span class="badge badge-info">Đã duyệt</span></td>
+                                        <td><button class="btn btn-outline btn-sm" style="padding:6px 10px">👁️</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td><strong>NV005</strong></td>
+                                        <td><div class="employee-cell"><div class="employee-avatar red">TH</div><div class="employee-info"><h4>Trần Gia Huy</h4><span>Kho vận</span></div></div></td>
+                                        <td>Kho vận</td>
+                                        <td>8.000.000₫</td>
+                                        <td style="color:#10B981">+1.000.000₫</td>
+                                        <td style="color:#EF4444">-250.000₫</td>
+                                        <td><strong>8.750.000₫</strong></td>
+                                        <td><span class="badge badge-success">Đã thanh toán</span></td>
+                                        <td><button class="btn btn-outline btn-sm" style="padding:6px 10px">👁️</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-grid content-grid-2">
+                    <div class="card">
+                        <div class="card-header"><h3>📊 Tổng hợp theo phòng ban</h3></div>
+                        <div class="card-body">
+                            <div class="department-bar-item">
+                                <div class="department-bar-header"><span class="name">Bán hàng</span><span class="count">102M</span></div>
+                                <div class="department-bar-track"><div class="department-bar-fill" style="width:45%"></div></div>
+                            </div>
+                            <div class="department-bar-item">
+                                <div class="department-bar-header"><span class="name">Thu ngân</span><span class="count">86M</span></div>
+                                <div class="department-bar-track"><div class="department-bar-fill" style="width:35%"></div></div>
+                            </div>
+                            <div class="department-bar-item">
+                                <div class="department-bar-header"><span class="name">Kho vận</span><span class="count">42M</span></div>
+                                <div class="department-bar-track"><div class="department-bar-fill" style="width:18%"></div></div>
+                            </div>
+                            <div class="department-bar-item">
+                                <div class="department-bar-header"><span class="name">Quản lý & Nhân sự</span><span class="count">18M</span></div>
+                                <div class="department-bar-track"><div class="department-bar-fill" style="width:8%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header"><h3>⚠️ Lưu ý tháng này</h3></div>
+                        <div class="card-body">
+                            <div class="alert alert-warning">️ 3 nhân viên thử việc chưa được duyệt lương chính thức</div>
+                            <div class="alert alert-info">ℹ️ 2 nhân viên có ngày công &lt; 20 ngày</div>
+                            <div class="alert alert-success">✅ 45/48 phiếu lương đã được thanh toán</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="js/app.js"></script>
+</body>
+</html>
